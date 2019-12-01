@@ -18,6 +18,10 @@ django-extensions = "*"
 django-filter = "*"
 python-decouple = "*"
 dj-database-url = "*"
+django-ratelimit = "*"
+whitenoise = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
