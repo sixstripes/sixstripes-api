@@ -22,25 +22,25 @@ deploy:
 	git push heroku master
 
 migrate:
-	heroku run --app sixstripes-api "cd sixstripes_api && ./manage.py migrate"
+	heroku run --app sixstripes-api "cd src && ./manage.py migrate"
 
 shell:
-	heroku run --app sixstripes-api "cd sixstripes_api && ./manage.py shell_plus"
+	heroku run --app sixstripes-api "cd src && ./manage.py shell_plus"
 
 collectstatic:
-	python sixstripes_api/manage.py collectstatic
+	python src/manage.py collectstatic
 
 lint:
 	pipenv run pre-commit install && pipenv run pre-commit run -a -v
 
 test:
-	pipenv run pytest -x -s sixstripes_api
+	pipenv run pytest -x -s src
 
 check-dead-fixtures:
-	pipenv run pytest --dead-fixtures sixstripes_api
+	pipenv run pytest --dead-fixtures src
 
 pip-install:
 	pipenv install --dev
 
 pyformat:
-	pipenv run black sixstripes_api
+	pipenv run black src
