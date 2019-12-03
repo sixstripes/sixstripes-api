@@ -24,6 +24,9 @@ deploy:
 migrate:
 	heroku run --app sixstripes-api "cd src && ./manage.py migrate"
 
+bash:
+	heroku run --app sixstripes-api "bash"
+
 shell:
 	heroku run --app sixstripes-api "cd src && ./manage.py shell_plus"
 

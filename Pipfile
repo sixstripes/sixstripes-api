@@ -23,6 +23,7 @@ whitenoise = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
 django-countries = "*"
+pendulum = "*"
 
 [requires]
 python_version = "3.8"

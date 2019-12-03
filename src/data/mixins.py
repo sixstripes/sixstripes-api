@@ -7,10 +7,10 @@ class PersonMixin(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=256)
     country = CountryField(verbose_name=_("country"))
     reference = models.URLField(verbose_name=_("reference"), null=True, blank=True)
-    start_birth_date = models.DateField(verbose_name=_("start birth date"), null=True)
-    end_birth_date = models.DateField(verbose_name=_("end birth date"), null=True)
-    start_death_date = models.DateField(verbose_name=_("start death date"), null=True)
-    end_death_date = models.DateField(verbose_name=_("end death date"), null=True)
+    start_birth_date = models.DateField(verbose_name=_("start birth date"), null=True, blank=True)
+    end_birth_date = models.DateField(verbose_name=_("end birth date"), null=True, blank=True)
+    start_death_date = models.DateField(verbose_name=_("start death date"), null=True, blank=True)
+    end_death_date = models.DateField(verbose_name=_("end death date"), null=True, blank=True)
 
     class Meta:
         abstract = True
