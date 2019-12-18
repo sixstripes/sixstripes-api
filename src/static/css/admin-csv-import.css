@@ -1,0 +1,44 @@
+.admin-csv-import {
+    padding: 0 0 1rem 0;
+}
+
+
+.admin-csv-import form {
+    margin:0 auto;
+    padding:20px;
+    height:auto;
+    overflow:hidden;
+    background:#FFFFFF;
+    border-radius:3px;
+}
+
+
+.admin-csv-import label {
+    margin:0;
+    padding:10px;
+    width:auto;
+    max-width:300px;
+    height:auto;
+    background-color:#999;
+    border:none;
+    color:#fff;
+    cursor:pointer;
+    text-align:center;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+}
+
+.admin-csv-import [type=file]{
+  display:none;
+}
+
+.admin-csv-import .submit {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-csv-import .submit.-show {
+    display: inline-block;
+}

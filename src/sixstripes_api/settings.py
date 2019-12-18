@@ -112,6 +112,7 @@ USE_TZ = True
 STATIC_HOST = config("DJANGO_STATIC_HOST", default="")
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "public/static")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

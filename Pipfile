@@ -24,6 +24,8 @@ psycopg2-binary = "*"
 gunicorn = "*"
 django-countries = "*"
 pendulum = "*"
+pandas = "*"
+ipdb = "*"
 
 [requires]
 python_version = "3.8"
