@@ -5,7 +5,7 @@ $(function(){
     var formdata = new FormData();
     formdata.append("file", file);
 
-    $('label').text(file.name);
+    $('.admin-csv-import label').text(file.name);
     $('.admin-csv-import .submit').addClass("-show");
   });
 });

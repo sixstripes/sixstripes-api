@@ -55,3 +55,40 @@ class Politician(PersonMixin):
 
     def __str__(self):
         return self.name
+
+
+class MusicalGender(models.Model):
+    name = models.CharField(verbose_name=_("name"), max_length=50)
+    slug = models.SlugField()
+
+    class Meta:
+        verbose_name = _("Musical Gender")
+        verbose_name_plural = _("Musical Genders")
+        ordering = ("slug",)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        return super().save(*args, **kwargs)
+
+
+class Musician(PersonMixin):
+    sexual_orientation = models.ForeignKey(
+        "data.SexualOrientation",
+        verbose_name=_("sexual orientation"),
+        related_name="musicians",
+        on_delete=models.CASCADE,
+    )
+    musical_genders = models.ManyToManyField(
+        "data.MusicalGender", verbose_name=_("musical gender"), blank=True
+    )
+
+    class Meta:
+        verbose_name = _("Musician")
+        verbose_name_plural = _("Musicians")
+
+    def __str__(self):
+        return self.name

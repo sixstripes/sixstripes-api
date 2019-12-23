@@ -6,11 +6,9 @@ from django.urls import path
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 
-from .forms import CsvImportForm
-
 
 class PersonMixin(models.Model):
-    name = models.CharField(verbose_name=_("name"), max_length=256)
+    name = models.CharField(verbose_name=_("name"), max_length=256, unique=True)
     country = CountryField(verbose_name=_("country"))
     reference = models.URLField(verbose_name=_("reference"), null=True, blank=True)
     start_birth_date = models.DateField(verbose_name=_("start birth date"), null=True, blank=True)
@@ -23,6 +21,8 @@ class PersonMixin(models.Model):
 
 
 class ImportCSVAdminMixin:
+    change_list_template = "import_csv_changelist.html"
+
     class Media:
         js = ("//code.jquery.com/jquery-3.4.1.slim.min.js", "js/admin-csv-import.js")
         css = {"all": ("css/admin-csv-import.css",)}
@@ -36,7 +36,7 @@ class ImportCSVAdminMixin:
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
-        extra_context["form"] = CsvImportForm()
+        extra_context["import_csv_url_name"] = f"admin:{self.import_csv_url_name}"
         return super().changelist_view(request, extra_context=extra_context)
 
     def import_csv(self, request):

@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from django_countries import countries
 from django_countries.fields import Country
 
-from .models import Occupation, Politician, SexualOrientation
+from .models import MusicalGender, Musician, Occupation, Politician, SexualOrientation
 from .utils import DatetimeParser
 
 
@@ -42,6 +42,29 @@ class CsvDataTranslator:
         obj.save()
         return obj
 
+    def prepare_country(self, value):
+        return Country(countries.by_name(value))
+
+    def prepare_date_range(self, value):
+        if value is None:
+            return None
+
+        if not value.strip():
+            return None
+
+        parser = DatetimeParser(value)
+        return parser.date_range()
+
+    def prepare_birth_date_range(self, value):
+        return self.prepare_date_range(value)
+
+    def prepare_death_date_range(self, value):
+        return self.prepare_date_range(value)
+
+    def prepare_sexual_orientation(self, value):
+        orientation = SexualOrientation.objects.get_or_create(slug=slugify(value), defaults={"name": value})
+        return orientation[0]
+
 
 class PoliticianDataTranslator(CsvDataTranslator):
 
@@ -55,26 +78,6 @@ class PoliticianDataTranslator(CsvDataTranslator):
         "birth_date_range": "Birth",
         "death_date_range": "Death",
     }
-
-    def prepare_sexual_orientation(self, value):
-        orientation = SexualOrientation.objects.get_or_create(slug=slugify(value), defaults={"name": value})
-        return orientation[0]
-
-    def prepare_country(self, value):
-        return Country(countries.by_name(value))
-
-    def prepare_date_range(self, value):
-        if value is None:
-            return None
-
-        parser = DatetimeParser(value)
-        return parser.date_range()
-
-    def prepare_birth_date_range(self, value):
-        return self.prepare_date_range(value)
-
-    def prepare_death_date_range(self, value):
-        return self.prepare_date_range(value)
 
     def prepare_occupation(self, value):
         if value is None:
@@ -114,5 +117,56 @@ class PoliticianDataTranslator(CsvDataTranslator):
 
         if data["secondary_occupation"]:
             obj.occupations.add(data["secondary_occupation"])
+
+        return obj
+
+
+class MusicianDataTranslator(CsvDataTranslator):
+
+    field_relation = {
+        "name": "Name",
+        "sexual_orientation": "LGBTQ",
+        "musical_genders": "Gender",
+        "country": "Country",
+        "reference": "Reference",
+        "birth_date_range": "Birth",
+        "death_date_range": "Death",
+    }
+
+    def prepare_musical_genders(self, value):
+        if not value:
+            return None
+
+        genders_data = value.split(",")
+        genders = [
+            MusicalGender.objects.get_or_create(slug=slugify(gender_name), defaults={"name": gender_name})[0]
+            for gender_name in genders_data
+            if gender_name
+        ]
+        return genders
+
+    def to_object(self, data):
+        obj = Musician.objects.update_or_create(
+            name=data["name"],
+            defaults={
+                "sexual_orientation": data["sexual_orientation"],
+                "reference": data["reference"],
+                "country": data["country"],
+            },
+        )[0]
+
+        if data["birth_date_range"]:
+            obj.start_birth_date = data["birth_date_range"][0]
+            obj.end_birth_date = data["birth_date_range"][1]
+
+        if data["death_date_range"]:
+            obj.start_death_date = data["death_date_range"][0]
+            obj.end_death_date = data["death_date_range"][1]
+
+        obj.save()
+
+        if data["musical_genders"]:
+            for gender in data["musical_genders"]:
+                obj.musical_genders.add(gender)
 
         return obj

@@ -2,7 +2,7 @@
 {% block object-tools %}
     {{block.super}}
     <div class="admin-csv-import">
-        <form action="{% url 'admin:data_politician_import_csv' %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url import_csv_url_name %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
             <label for="file">Importar CSV</label>
