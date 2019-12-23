@@ -1,1 +1,1 @@
-web: gunicorn sixstripes_api.wsgi --chdir=src/
+web: gunicorn sixstripes_api.wsgi --timeout 500 --chdir=src/

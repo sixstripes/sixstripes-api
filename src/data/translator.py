@@ -1,4 +1,5 @@
 import pandas as pd
+from django.db import transaction
 from django.utils.text import slugify
 from django_countries import countries
 from django_countries.fields import Country
@@ -35,6 +36,7 @@ class CsvDataTranslator:
     def to_objects_list(self):
         return [self.to_object(data_dict) for data_dict in self.data]
 
+    @transaction.atomic
     def to_object(self, data):
         obj = self.model_class()
         for field, colum in self.field_relation.items():
@@ -61,6 +63,7 @@ class CsvDataTranslator:
     def prepare_death_date_range(self, value):
         return self.prepare_date_range(value)
 
+    @transaction.atomic
     def prepare_sexual_orientation(self, value):
         orientation = SexualOrientation.objects.get_or_create(slug=slugify(value), defaults={"name": value})
         return orientation[0]
@@ -79,6 +82,7 @@ class PoliticianDataTranslator(CsvDataTranslator):
         "death_date_range": "Death",
     }
 
+    @transaction.atomic
     def prepare_occupation(self, value):
         if value is None:
             return None
@@ -92,6 +96,7 @@ class PoliticianDataTranslator(CsvDataTranslator):
     def prepare_secondary_occupation(self, value):
         return self.prepare_occupation(value)
 
+    @transaction.atomic
     def to_object(self, data):
         obj = Politician.objects.update_or_create(
             name=data["name"],
@@ -133,6 +138,7 @@ class MusicianDataTranslator(CsvDataTranslator):
         "death_date_range": "Death",
     }
 
+    @transaction.atomic
     def prepare_musical_genders(self, value):
         if not value:
             return None
@@ -145,6 +151,7 @@ class MusicianDataTranslator(CsvDataTranslator):
         ]
         return genders
 
+    @transaction.atomic
     def to_object(self, data):
         obj = Musician.objects.update_or_create(
             name=data["name"],
