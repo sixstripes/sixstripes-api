@@ -2,7 +2,12 @@ from data import models
 from django.contrib import admin
 
 from .mixins import ImportCSVAdminMixin
-from .translator import MovieDataTranslator, MusicianDataTranslator, PoliticianDataTranslator
+from .translator import (
+    DigitalInfluencerDataTranslator,
+    MovieDataTranslator,
+    MusicianDataTranslator,
+    PoliticianDataTranslator,
+)
 
 
 @admin.register(models.Politician)
@@ -62,3 +67,16 @@ class MovieAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
     translator_class = MovieDataTranslator
     import_csv_url_name = "data_movie_import_csv"
     import_csv_redirect_url_name = "admin:data_movie_changelist"
+
+
+@admin.register(models.DigitalInfluencer)
+class DigitalInfluencerAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
+    list_display = (
+        "name",
+        "sexual_orientation",
+        "country",
+        "reference",
+    )
+    translator_class = DigitalInfluencerDataTranslator
+    import_csv_url_name = "data_digitalinfluencer_import_csv"
+    import_csv_redirect_url_name = "admin:data_digitalinfluencer_changelist"

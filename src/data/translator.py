@@ -5,6 +5,7 @@ from django_countries import countries
 from django_countries.fields import Country
 
 from .models import (
+    DigitalInfluencer,
     Movie,
     MovieActor,
     MovieDirector,
@@ -55,6 +56,9 @@ class CsvDataTranslator:
         return obj
 
     def prepare_country(self, value):
+        if not value:
+            return Country(code="")
+
         return Country(countries.by_name(value))
 
     def prepare_date_range(self, value):
@@ -288,5 +292,50 @@ class MovieDataTranslator(CsvDataTranslator):
 
         if data["cast"]:
             obj.cast.add(*data["cast"])
+
+        return obj
+
+
+class DigitalInfluencerDataTranslator(CsvDataTranslator):
+
+    field_relation = {
+        "name": "Channel",
+        "sexual_orientation": "LGBTQ",
+        "country": "Country",
+        "reference": "Reference",
+        "birth_date_range": "Birth",
+        "subscribers": "Subscribers",
+        "views": "Views",
+        "url": "Channel Link",
+        "social_media_username": "Social Media",
+    }
+
+    def prepare_subscribers(self, value):
+        cleaned = value.replace(".", "")
+        cleaned = cleaned.replace(",", "")
+        return int(cleaned)
+
+    def prepare_views(self, value):
+        cleaned = value.replace(".", "")
+        cleaned = cleaned.replace(",", "")
+        return int(cleaned)
+
+    @transaction.atomic
+    def to_object(self, data):
+        obj_data = {
+            "sexual_orientation": data["sexual_orientation"],
+            "reference": data["reference"],
+            "country": data["country"],
+            "subscribers": data["subscribers"],
+            "views": data["views"],
+            "url": data["url"],
+            "social_media_username": data["social_media_username"],
+        }
+
+        if data["birth_date_range"]:
+            obj_data["start_birth_date"] = data["birth_date_range"][0]
+            obj_data["end_birth_date"] = data["birth_date_range"][1]
+
+        obj = DigitalInfluencer.objects.update_or_create(name=data["name"], defaults=obj_data,)[0]
 
         return obj

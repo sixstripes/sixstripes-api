@@ -160,3 +160,25 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class DigitalInfluencer(PersonMixin):
+    sexual_orientation = models.ForeignKey(
+        "data.SexualOrientation",
+        verbose_name=_("sexual orientation"),
+        related_name="influencers",
+        on_delete=models.CASCADE,
+    )
+    subscribers = models.PositiveIntegerField(null=True, blank=True, verbose_name=_("subscribers"))
+    views = models.BigIntegerField(null=True, blank=True, verbose_name=_("views"))
+    url = models.URLField(null=True, blank=True, verbose_name=_("url"))
+    social_media_username = models.CharField(
+        max_length=500, verbose_name=_("social media"), null=True, blank=True
+    )
+
+    class Meta:
+        verbose_name = _("Digital Influencer")
+        verbose_name_plural = _("Digital Incluencers")
+
+    def __str__(self):
+        return self.name
