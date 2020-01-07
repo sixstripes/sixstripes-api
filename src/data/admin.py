@@ -1,11 +1,11 @@
-from data.models import MusicalGender, Musician, Occupation, Politician, SexualOrientation
+from data import models
 from django.contrib import admin
 
 from .mixins import ImportCSVAdminMixin
-from .translator import MusicianDataTranslator, PoliticianDataTranslator
+from .translator import MovieDataTranslator, MusicianDataTranslator, PoliticianDataTranslator
 
 
-@admin.register(Politician)
+@admin.register(models.Politician)
 class PoliticianAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
     list_display = (
         "name",
@@ -18,22 +18,22 @@ class PoliticianAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
     import_csv_redirect_url_name = "admin:data_politician_changelist"
 
 
-@admin.register(Occupation)
+@admin.register(models.Occupation)
 class OccupationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
-@admin.register(SexualOrientation)
+@admin.register(models.SexualOrientation)
 class SexualOrientationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
-@admin.register(MusicalGender)
+@admin.register(models.MusicalGender)
 class MusicalGenderAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
-@admin.register(Musician)
+@admin.register(models.Musician)
 class MusicianAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
     list_display = (
         "name",
@@ -44,3 +44,21 @@ class MusicianAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
     translator_class = MusicianDataTranslator
     import_csv_url_name = "data_musician_import_csv"
     import_csv_redirect_url_name = "admin:data_musician_changelist"
+
+
+@admin.register(models.MovieGender)
+class MovieGenderAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(models.Movie)
+class MovieAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
+    list_display = (
+        "name",
+        "year",
+        "countries",
+        "reference",
+    )
+    translator_class = MovieDataTranslator
+    import_csv_url_name = "data_movie_import_csv"
+    import_csv_redirect_url_name = "admin:data_movie_changelist"

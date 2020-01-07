@@ -4,7 +4,17 @@ from django.utils.text import slugify
 from django_countries import countries
 from django_countries.fields import Country
 
-from .models import MusicalGender, Musician, Occupation, Politician, SexualOrientation
+from .models import (
+    Movie,
+    MovieActor,
+    MovieDirector,
+    MovieGender,
+    MusicalGender,
+    Musician,
+    Occupation,
+    Politician,
+    SexualOrientation,
+)
 from .utils import DatetimeParser
 
 
@@ -175,5 +185,108 @@ class MusicianDataTranslator(CsvDataTranslator):
         if data["musical_genders"]:
             for gender in data["musical_genders"]:
                 obj.musical_genders.add(gender)
+
+        return obj
+
+
+class MovieDataTranslator(CsvDataTranslator):
+
+    field_relation = {
+        "name": "Name",
+        "year": "Year",
+        "directors": "Director",
+        "countries": "Country",
+        "reference": "Reference",
+        "genders": "Gender",
+        "cast": "Cast",
+    }
+
+    def __init__(self, csv_data):
+        super().__init__(csv_data)
+        self.actor_names = set()
+        self.director_names = set()
+        self.gender_names = set()
+
+        self.populate_names()
+        self.genders = self.save_genders()
+        self.actors = self.save_actors()
+        self.directors = self.save_directors()
+
+    def populate_names(self):
+        for idx, row in self.dataframe.iterrows():
+            self.actor_names.update(self.extended_string_to_list(row["Cast"]))
+            self.director_names.update(self.extended_string_to_list(row["Director"]))
+            self.gender_names.update(self.extended_string_to_list(row["Gender"]))
+
+    def save_genders(self):
+        genders = [MovieGender(name=name) for name in self.gender_names if name]
+        MovieGender.objects.all().delete()
+        return MovieGender.objects.bulk_create(genders)
+
+    def save_actors(self):
+        actors = [MovieActor(name=name) for name in self.actor_names if name]
+        MovieActor.objects.all().delete()
+        return MovieActor.objects.bulk_create(actors)
+
+    def save_directors(self):
+        directors = [MovieDirector(name=name) for name in self.director_names if name]
+        MovieDirector.objects.all().delete()
+        return MovieDirector.objects.bulk_create(directors)
+
+    @transaction.atomic
+    def prepare_genders(self, value):
+        if not value:
+            return None
+
+        gender_names = self.extended_string_to_list(value)
+
+        return MovieGender.objects.in_bulk(gender_names, field_name="name").values()
+
+    def extended_string_to_list(self, extended_string):
+        if not extended_string:
+            return []
+
+        extended_string = ",".join(extended_string.split(" and "))
+        return [value.strip().title() for value in extended_string.split(",")]
+
+    @transaction.atomic
+    def prepare_directors(self, value):
+        if not value:
+            return None
+
+        director_names = self.extended_string_to_list(value)
+        return MovieDirector.objects.in_bulk(director_names, field_name="name").values()
+
+    @transaction.atomic
+    def prepare_cast(self, value):
+        if not value:
+            return None
+
+        actor_names = self.extended_string_to_list(value)
+        return MovieActor.objects.in_bulk(actor_names, field_name="name").values()
+
+    def prepare_countries(self, value):
+        if not value:
+            return None
+
+        countries_list = value.split(",")
+
+        return [countries.by_name(country.strip()) for country in countries_list]
+
+    @transaction.atomic
+    def to_object(self, data):
+        obj = Movie.objects.update_or_create(
+            name=data["name"],
+            defaults={"year": data["year"], "reference": data["reference"], "countries": data["countries"]},
+        )[0]
+
+        if data["genders"]:
+            obj.genders.add(*data["genders"])
+
+        if data["directors"]:
+            obj.directors.add(*data["directors"])
+
+        if data["cast"]:
+            obj.cast.add(*data["cast"])
 
         return obj
