@@ -8,6 +8,7 @@ from .translator import (
     MovieDataTranslator,
     MusicianDataTranslator,
     PoliticianDataTranslator,
+    ScientistDataTranslator,
 )
 
 
@@ -94,3 +95,16 @@ class AthletAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
     translator_class = AthletDataTranslator
     import_csv_url_name = "data_athlet_import_csv"
     import_csv_redirect_url_name = "admin:data_athlet_changelist"
+
+
+@admin.register(models.Scientist)
+class ScientistAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
+    list_display = (
+        "name",
+        "sexual_orientation",
+        "country",
+        "reference",
+    )
+    translator_class = ScientistDataTranslator
+    import_csv_url_name = "data_scientist_import_csv"
+    import_csv_redirect_url_name = "admin:data_scientist_changelist"

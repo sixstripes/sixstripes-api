@@ -218,3 +218,20 @@ class Athlet(PersonMixin):
 
     def __str__(self):
         return self.name
+
+
+class Scientist(PersonMixin):
+    sexual_orientation = models.ForeignKey(
+        "data.SexualOrientation",
+        verbose_name=_("sexual orientation"),
+        related_name="scientists",
+        on_delete=models.CASCADE,
+    )
+    occupations = models.ManyToManyField("data.Occupation", verbose_name=_("occupations"))
+
+    class Meta:
+        verbose_name = _("Scientist")
+        verbose_name_plural = _("Scientists")
+
+    def __str__(self):
+        return self.name

@@ -15,6 +15,7 @@ from .models import (
     Musician,
     Occupation,
     Politician,
+    Scientist,
     SexualOrientation,
     Sport,
 )
@@ -396,5 +397,66 @@ class AthletDataTranslator(CsvDataTranslator):
             obj_data["end_death_date"] = data["death_date_range"][1]
 
         obj = Athlet.objects.update_or_create(name=data["name"], defaults=obj_data,)[0]
+
+        return obj
+
+
+class ScientistDataTranslator(CsvDataTranslator):
+
+    field_relation = {
+        "name": "Name",
+        "sexual_orientation": "LGBTQ",
+        "primary_occupation": "Occupation",
+        "secondary_occupation": "Occupation 2",
+        "third_occupation": "Occupation 3",
+        "country": "Country",
+        "reference": "Reference",
+        "birth_date_range": "Birth",
+        "death_date_range": "Death",
+    }
+
+    @transaction.atomic
+    def prepare_occupation(self, value):
+        if value is None:
+            return None
+
+        occupation = Occupation.objects.get_or_create(slug=slugify(value), defaults={"name": value.title()})
+        return occupation[0]
+
+    def prepare_primary_occupation(self, value):
+        return self.prepare_occupation(value)
+
+    def prepare_secondary_occupation(self, value):
+        return self.prepare_occupation(value)
+
+    def prepare_third_occupation(self, value):
+        return self.prepare_occupation(value)
+
+    @transaction.atomic
+    def to_object(self, data):
+        obj_data = {
+            "sexual_orientation": data["sexual_orientation"],
+            "reference": data["reference"],
+            "country": data["country"],
+        }
+
+        if data["birth_date_range"]:
+            obj_data["start_birth_date"] = data["birth_date_range"][0]
+            obj_data["end_birth_date"] = data["birth_date_range"][1]
+
+        if data["death_date_range"]:
+            obj_data["start_death_date"] = data["death_date_range"][0]
+            obj_data["end_death_date"] = data["death_date_range"][1]
+
+        obj = Scientist.objects.update_or_create(name=data["name"], defaults=obj_data,)[0]
+
+        if data["primary_occupation"]:
+            obj.occupations.add(data["primary_occupation"])
+
+        if data["secondary_occupation"]:
+            obj.occupations.add(data["secondary_occupation"])
+
+        if data["third_occupation"]:
+            obj.occupations.add(data["third_occupation"])
 
         return obj
