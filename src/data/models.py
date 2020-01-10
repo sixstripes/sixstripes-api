@@ -27,7 +27,7 @@ class SexualOrientation(models.Model):
 
 class Occupation(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=250)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=250)
 
     class Meta:
         verbose_name = _("Occupation")
