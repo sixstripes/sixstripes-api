@@ -5,6 +5,7 @@ from django_countries import countries
 from django_countries.fields import Country
 
 from .models import (
+    Athlet,
     DigitalInfluencer,
     Movie,
     MovieActor,
@@ -15,6 +16,7 @@ from .models import (
     Occupation,
     Politician,
     SexualOrientation,
+    Sport,
 )
 from .utils import DatetimeParser
 
@@ -337,5 +339,62 @@ class DigitalInfluencerDataTranslator(CsvDataTranslator):
             obj_data["end_birth_date"] = data["birth_date_range"][1]
 
         obj = DigitalInfluencer.objects.update_or_create(name=data["name"], defaults=obj_data,)[0]
+
+        return obj
+
+
+class AthletDataTranslator(CsvDataTranslator):
+
+    field_relation = {
+        "name": "Name",
+        "sexual_orientation": "LGBTQ",
+        "country": "Country",
+        "reference": "Reference",
+        "birth_date_range": "Nascimento",
+        "death_date_range": "Morte",
+        "sport": "Esporte",
+    }
+
+    def __init__(self, csv_data):
+        super().__init__(csv_data)
+        self.sports = set()
+
+        self.populate_sports()
+        self.save_sports()
+
+    def populate_sports(self):
+        for idx, row in self.dataframe.iterrows():
+            self.sports.update([row["Esporte"].strip()])
+
+    def save_sports(self):
+        sports = [Sport(name=name) for name in self.sports if name]
+        Sport.objects.all().delete()
+        return Sport.objects.bulk_create(sports)
+
+    def prepare_sport(self, value):
+        if not value:
+            return None
+
+        sports = Sport.objects.in_bulk([value], field_name="name")
+        return sports[value]
+
+    @transaction.atomic
+    def to_object(self, data):
+        obj_data = {
+            "sexual_orientation": data["sexual_orientation"],
+            "reference": data["reference"],
+            "country": data["country"],
+            "sport": data["sport"],
+        }
+
+        if data["birth_date_range"]:
+            obj_data["start_birth_date"] = data["birth_date_range"][0]
+            obj_data["end_birth_date"] = data["birth_date_range"][1]
+
+        if data["death_date_range"]:
+            obj_data["start_death_date"] = data["death_date_range"][0]
+            obj_data["end_death_date"] = data["death_date_range"][1]
+
+        obj = Athlet.objects.update_or_create(name=data["name"], defaults=obj_data,)[0]
 
         return obj

@@ -182,3 +182,39 @@ class DigitalInfluencer(PersonMixin):
 
     def __str__(self):
         return self.name
+
+
+class Sport(models.Model):
+    name = models.CharField(verbose_name=_("name"), max_length=50, unique=True)
+    slug = models.SlugField()
+
+    class Meta:
+        verbose_name = _("Sport")
+        verbose_name_plural = _("Sports")
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+class Athlet(PersonMixin):
+    sexual_orientation = models.ForeignKey(
+        "data.SexualOrientation",
+        verbose_name=_("sexual orientation"),
+        related_name="athlets",
+        on_delete=models.CASCADE,
+    )
+    sport = models.ForeignKey(
+        "data.Sport", verbose_name=_("sport"), related_name="athlets", on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = _("Athlet")
+        verbose_name_plural = _("Athlets")
+
+    def __str__(self):
+        return self.name
