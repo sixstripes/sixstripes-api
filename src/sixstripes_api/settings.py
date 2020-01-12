@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_countries",
     "multiselectfield",
+    "rest_framework",
+    "rest_framework.authtoken",
     "data",
 ]
 
@@ -117,3 +119,17 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 20,
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+}
