@@ -16,8 +16,8 @@ class SexualOrientationSerializer(serializers.ModelSerializer):
 
 
 class PoliticianSerializer(CountryFieldMixin, serializers.ModelSerializer):
-    occupations = OccupationSerializer(many=True)
-    sexual_orientation = SexualOrientationSerializer()
+    occupations = serializers.StringRelatedField(many=True)
+    sexual_orientation = serializers.StringRelatedField()
 
     class Meta:
         model = models.Politician
@@ -42,8 +42,8 @@ class MusicalGenderSerializer(serializers.ModelSerializer):
 
 
 class MusicianSerializer(CountryFieldMixin, serializers.ModelSerializer):
-    musical_genders = MusicalGenderSerializer(many=True)
-    sexual_orientation = SexualOrientationSerializer()
+    musical_genders = serializers.StringRelatedField(many=True)
+    sexual_orientation = serializers.StringRelatedField()
 
     class Meta:
         model = models.Politician

@@ -22,7 +22,7 @@ class SexualOrientation(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 
 class Occupation(models.Model):
@@ -39,7 +39,7 @@ class Occupation(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 
 class Politician(PersonMixin):
@@ -69,7 +69,7 @@ class MusicalGender(models.Model):
         ordering = ("slug",)
 
     def __str__(self):
-        return self.name
+        return self.slug
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -117,7 +117,7 @@ class MovieGender(models.Model):
         ordering = ("slug",)
 
     def __str__(self):
-        return self.name
+        return self.slug
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -198,7 +198,7 @@ class Sport(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 
 class Athlet(PersonMixin):
