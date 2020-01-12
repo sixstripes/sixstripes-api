@@ -63,7 +63,6 @@ class MovieAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
     list_display = (
         "name",
         "year",
-        "countries",
         "reference",
     )
     translator_class = MovieDataTranslator

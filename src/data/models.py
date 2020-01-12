@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django_countries import countries
-from multiselectfield import MultiSelectField
+from django_countries.fields import CountryField
 
 
 class SexualOrientation(models.Model):
@@ -142,7 +142,7 @@ COUNTRIES_CHOICES = ((code, country) for code, country in countries.countries.it
 class Movie(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=255)
     year = models.PositiveIntegerField()
-    countries = MultiSelectField(verbose_name=_("countries"), choices=COUNTRIES_CHOICES)
+    countries = CountryField(verbose_name=_("country"), multiple=True)
     reference = models.URLField(verbose_name=_("reference"), null=True, blank=True)
     genders = models.ManyToManyField(
         "data.MovieGender", related_name="movies", blank=True, verbose_name=_("movie genders")

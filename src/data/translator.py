@@ -278,7 +278,7 @@ class MovieDataTranslator(CsvDataTranslator):
 
         countries_list = value.split(",")
 
-        return [countries.by_name(country.strip()) for country in countries_list]
+        return [Country(countries.by_name(country.strip())) for country in countries_list]
 
     @transaction.atomic
     def to_object(self, data):
