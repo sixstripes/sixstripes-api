@@ -9,8 +9,15 @@ class OccupationSerializer(serializers.ModelSerializer):
         fields = ("name", "slug")
 
 
+class SexualOrientationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.SexualOrientation
+        fields = ("name", "slug")
+
+
 class PoliticianSerializer(CountryFieldMixin, serializers.ModelSerializer):
     occupations = OccupationSerializer(many=True)
+    sexual_orientation = SexualOrientationSerializer()
 
     class Meta:
         model = models.Politician
@@ -23,5 +30,32 @@ class PoliticianSerializer(CountryFieldMixin, serializers.ModelSerializer):
             "end_birth_date",
             "start_death_date",
             "end_death_date",
+            "sexual_orientation",
             "occupations",
+        )
+
+
+class MusicalGenderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.MusicalGender
+        fields = ("name", "slug")
+
+
+class MusicianSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    musical_genders = MusicalGenderSerializer(many=True)
+    sexual_orientation = SexualOrientationSerializer()
+
+    class Meta:
+        model = models.Politician
+        fields = (
+            "id",
+            "name",
+            "country",
+            "reference",
+            "start_birth_date",
+            "end_birth_date",
+            "start_death_date",
+            "end_death_date",
+            "sexual_orientation",
+            "musical_genders",
         )

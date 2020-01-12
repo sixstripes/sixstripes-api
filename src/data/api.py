@@ -5,3 +5,8 @@ from rest_framework import viewsets
 class PoliticianViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Politician.objects.all()
     serializer_class = serializers.PoliticianSerializer
+
+
+class MusicianViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.Musician.objects.all()
+    serializer_class = serializers.MusicianSerializer
