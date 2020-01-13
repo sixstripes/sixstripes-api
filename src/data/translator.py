@@ -384,7 +384,7 @@ class AthletDataTranslator(CsvDataTranslator):
             self.sports.update([row["Esporte"].strip()])
 
     def save_sports(self):
-        sports = [Sport(name=name) for name in self.sports if name]
+        sports = [Sport(name=name, slug=slugify(name)) for name in self.sports if name]
         Sport.objects.all().delete()
         return Sport.objects.bulk_create(sports)
 

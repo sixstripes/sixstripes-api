@@ -102,3 +102,23 @@ class DigitalInfluencerSerializer(CountryFieldMixin, serializers.ModelSerializer
             "social_media_username",
             "main_social_medias",
         )
+
+
+class AthletSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    sexual_orientation = serializers.StringRelatedField()
+    sport = serializers.StringRelatedField()
+
+    class Meta:
+        model = models.Athlet
+        fields = (
+            "id",
+            "name",
+            "country",
+            "reference",
+            "start_birth_date",
+            "end_birth_date",
+            "start_death_date",
+            "end_death_date",
+            "sexual_orientation",
+            "sport",
+        )

@@ -9,6 +9,7 @@ router.register(r"politicians", api.PoliticianViewSet)
 router.register(r"musicians", api.MusicianViewSet)
 router.register(r"movies", api.MovieViewSet)
 router.register(r"digital-influencers", api.DigitalInfluencerViewSet)
+router.register(r"athlets", api.AthletViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
