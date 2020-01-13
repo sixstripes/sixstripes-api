@@ -59,3 +59,22 @@ class MusicianSerializer(CountryFieldMixin, serializers.ModelSerializer):
             "sexual_orientation",
             "musical_genders",
         )
+
+
+class MovieSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    genders = serializers.StringRelatedField(many=True)
+    cast = serializers.StringRelatedField(many=True)
+    directors = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = models.Movie
+        fields = (
+            "id",
+            "name",
+            "year",
+            "countries",
+            "reference",
+            "genders",
+            "directors",
+            "cast",
+        )

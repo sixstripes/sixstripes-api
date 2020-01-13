@@ -7,6 +7,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r"politicians", api.PoliticianViewSet)
 router.register(r"musicians", api.MusicianViewSet)
+router.register(r"movies", api.MovieViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

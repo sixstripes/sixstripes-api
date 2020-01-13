@@ -10,3 +10,8 @@ class PoliticianViewSet(viewsets.ReadOnlyModelViewSet):
 class MusicianViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Musician.objects.all()
     serializer_class = serializers.MusicianSerializer
+
+
+class MovieViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.Movie.objects.all()
+    serializer_class = serializers.MovieSerializer

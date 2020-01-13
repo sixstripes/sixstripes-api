@@ -226,7 +226,7 @@ class MovieDataTranslator(CsvDataTranslator):
             self.gender_names.update(self.extended_string_to_list(row["Gender"]))
 
     def save_genders(self):
-        genders = [MovieGender(name=name) for name in self.gender_names if name]
+        genders = [MovieGender(name=name, slug=slugify(name)) for name in self.gender_names if name]
         MovieGender.objects.all().delete()
         return MovieGender.objects.bulk_create(genders)
 
