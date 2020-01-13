@@ -162,6 +162,23 @@ class Movie(models.Model):
         return self.name
 
 
+class SocialMedia(models.Model):
+    name = models.CharField(verbose_name=_("name"), max_length=50, unique=True)
+    slug = models.SlugField()
+
+    class Meta:
+        verbose_name = _("Social Media")
+        verbose_name_plural = _("Social Medias")
+
+    def __str__(self):
+        return self.slug
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        return super().save(*args, **kwargs)
+
+
 class DigitalInfluencer(PersonMixin):
     sexual_orientation = models.ForeignKey(
         "data.SexualOrientation",
@@ -174,6 +191,9 @@ class DigitalInfluencer(PersonMixin):
     url = models.URLField(null=True, blank=True, verbose_name=_("url"))
     social_media_username = models.CharField(
         max_length=500, verbose_name=_("social media"), null=True, blank=True
+    )
+    main_social_medias = models.ManyToManyField(
+        "data.SocialMedia", verbose_name=_("main social medias"), blank=True
     )
 
     class Meta:

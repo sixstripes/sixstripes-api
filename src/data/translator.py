@@ -17,6 +17,7 @@ from .models import (
     Politician,
     Scientist,
     SexualOrientation,
+    SocialMedia,
     Sport,
 )
 from .utils import DatetimeParser
@@ -311,6 +312,7 @@ class DigitalInfluencerDataTranslator(CsvDataTranslator):
         "views": "Views",
         "url": "Channel Link",
         "social_media_username": "Social Media",
+        "main_social_medias": "Main Social Media",
     }
 
     def prepare_subscribers(self, value):
@@ -322,6 +324,17 @@ class DigitalInfluencerDataTranslator(CsvDataTranslator):
         cleaned = value.replace(".", "")
         cleaned = cleaned.replace(",", "")
         return int(cleaned)
+
+    def prepare_main_social_medias(self, value):
+        if not value:
+            return None
+
+        social_medias = [
+            SocialMedia.objects.get_or_create(slug=slugify(media_name), defaults={"name": media_name})[0]
+            for media_name in value.split(",")
+            if media_name
+        ]
+        return social_medias
 
     @transaction.atomic
     def to_object(self, data):
@@ -340,6 +353,9 @@ class DigitalInfluencerDataTranslator(CsvDataTranslator):
             obj_data["end_birth_date"] = data["birth_date_range"][1]
 
         obj = DigitalInfluencer.objects.update_or_create(name=data["name"], defaults=obj_data,)[0]
+
+        if data["main_social_medias"]:
+            obj.main_social_medias.add(*data["main_social_medias"])
 
         return obj
 
