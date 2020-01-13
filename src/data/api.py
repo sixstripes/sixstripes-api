@@ -15,3 +15,8 @@ class MusicianViewSet(viewsets.ReadOnlyModelViewSet):
 class MovieViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Movie.objects.all()
     serializer_class = serializers.MovieSerializer
+
+
+class DigitalInfluencerViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.DigitalInfluencer.objects.all()
+    serializer_class = serializers.DigitalInfluencerSerializer

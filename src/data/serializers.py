@@ -78,3 +78,27 @@ class MovieSerializer(CountryFieldMixin, serializers.ModelSerializer):
             "directors",
             "cast",
         )
+
+
+class DigitalInfluencerSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    sexual_orientation = serializers.StringRelatedField()
+    main_social_medias = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = models.DigitalInfluencer
+        fields = (
+            "id",
+            "name",
+            "country",
+            "reference",
+            "start_birth_date",
+            "end_birth_date",
+            "start_death_date",
+            "end_death_date",
+            "sexual_orientation",
+            "subscribers",
+            "views",
+            "url",
+            "social_media_username",
+            "main_social_medias",
+        )

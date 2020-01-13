@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r"politicians", api.PoliticianViewSet)
 router.register(r"musicians", api.MusicianViewSet)
 router.register(r"movies", api.MovieViewSet)
+router.register(r"digital-influencers", api.DigitalInfluencerViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
