@@ -122,3 +122,23 @@ class AthletSerializer(CountryFieldMixin, serializers.ModelSerializer):
             "sexual_orientation",
             "sport",
         )
+
+
+class ScientistSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    occupations = serializers.StringRelatedField(many=True)
+    sexual_orientation = serializers.StringRelatedField()
+
+    class Meta:
+        model = models.Scientist
+        fields = (
+            "id",
+            "name",
+            "country",
+            "reference",
+            "start_birth_date",
+            "end_birth_date",
+            "start_death_date",
+            "end_death_date",
+            "sexual_orientation",
+            "occupations",
+        )

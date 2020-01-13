@@ -27,6 +27,7 @@ pendulum = "*"
 pandas = "*"
 ipdb = "*"
 django-multiselectfield = "*"
+drf-yasg = {extras = ["validation"],version = "*"}
 
 [requires]
 python_version = "3.8"

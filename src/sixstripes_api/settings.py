@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "multiselectfield",
     "rest_framework",
     "rest_framework.authtoken",
+    "drf_yasg",
     "data",
 ]
 

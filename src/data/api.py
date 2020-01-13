@@ -25,3 +25,8 @@ class DigitalInfluencerViewSet(viewsets.ReadOnlyModelViewSet):
 class AthletViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Athlet.objects.all()
     serializer_class = serializers.AthletSerializer
+
+
+class ScientistViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.Scientist.objects.all()
+    serializer_class = serializers.ScientistSerializer
