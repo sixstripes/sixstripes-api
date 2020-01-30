@@ -13,6 +13,11 @@ router.register(r"movies", api.MovieViewSet)
 router.register(r"digital-influencers", api.DigitalInfluencerViewSet)
 router.register(r"athlets", api.AthletViewSet)
 router.register(r"scientists", api.ScientistViewSet)
+router.register(r"musical-genders", api.MusicalGenderViewSet)
+router.register(r"occupations", api.OccupationViewSet)
+router.register(r"movie-genders", api.MovieGenderViewSet)
+router.register(r"social-medias", api.SocialMediaViewSet)
+router.register(r"sports", api.SportViewSet)
 
 schema_view = get_schema_view(
     openapi.Info(

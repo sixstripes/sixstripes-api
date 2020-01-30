@@ -1,7 +1,7 @@
 from data import filters, models, serializers, swagger
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 
 
 @method_decorator(
@@ -83,3 +83,43 @@ class ScientistViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Scientist.objects.all()
     serializer_class = serializers.ScientistSerializer
     filterset_class = filters.ScientistFilterSet
+
+
+@method_decorator(
+    name="list", decorator=swagger_auto_schema(operation_summary="list musical genders"),
+)
+class MusicalGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = models.MusicalGender.objects.all()
+    serializer_class = serializers.MusicalGenderSerializer
+
+
+@method_decorator(
+    name="list", decorator=swagger_auto_schema(operation_summary="list occupations"),
+)
+class OccupationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = models.Occupation.objects.all()
+    serializer_class = serializers.OccupationSerializer
+
+
+@method_decorator(
+    name="list", decorator=swagger_auto_schema(operation_summary="list movie genders"),
+)
+class MovieGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = models.MovieGender.objects.all()
+    serializer_class = serializers.MovieGenderSerializer
+
+
+@method_decorator(
+    name="list", decorator=swagger_auto_schema(operation_summary="list social medias"),
+)
+class SocialMediaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = models.SocialMedia.objects.all()
+    serializer_class = serializers.SocialMediaSerializer
+
+
+@method_decorator(
+    name="list", decorator=swagger_auto_schema(operation_summary="list sports"),
+)
+class SportViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = models.Sport.objects.all()
+    serializer_class = serializers.SportSerializer

@@ -61,6 +61,12 @@ class MusicianSerializer(CountryFieldMixin, serializers.ModelSerializer):
         )
 
 
+class MovieGenderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.MovieGender
+        fields = ("name", "slug")
+
+
 class MovieSerializer(CountryFieldMixin, serializers.ModelSerializer):
     genders = serializers.StringRelatedField(many=True)
     cast = serializers.StringRelatedField(many=True)
@@ -78,6 +84,12 @@ class MovieSerializer(CountryFieldMixin, serializers.ModelSerializer):
             "directors",
             "cast",
         )
+
+
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.SocialMedia
+        fields = ("name", "slug")
 
 
 class DigitalInfluencerSerializer(CountryFieldMixin, serializers.ModelSerializer):
@@ -102,6 +114,12 @@ class DigitalInfluencerSerializer(CountryFieldMixin, serializers.ModelSerializer
             "social_media_username",
             "main_social_medias",
         )
+
+
+class SportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Sport
+        fields = ("name", "slug")
 
 
 class AthletSerializer(CountryFieldMixin, serializers.ModelSerializer):
