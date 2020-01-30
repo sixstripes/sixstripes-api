@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-from rest_framework import permissions
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -19,13 +18,15 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Six Stripes API",
         default_version="v1",
-        description="",
-        terms_of_service="",
+        description=(
+            "The data belonging to this database were collected and structured by the Sixstripes team "
+            "through research and curators on the web, in free databases (Wikipedia) and digital platforms "
+            "(Youtube and Sportify).<br>All profiles present are self-declared people belonging to the LGBTQ "
+            "community.<br>All data collected has reference links as a way of verifying its veracity."
+        ),
         contact=openapi.Contact(email=""),
-        license=openapi.License(name="License"),
     ),
     public=True,
-    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
