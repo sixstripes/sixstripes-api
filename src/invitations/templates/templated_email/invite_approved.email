@@ -1,0 +1,10 @@
+
+{% block subject %}SixStripes API Access Approved!{% endblock %}
+
+{% block html %}
+  <p>Hi {{invite.name}},</p>
+
+  <p>Your invite request to access our API was APPROVED!</p>
+  <p>You can access all data using the following token:</p>
+  <p><strong>{{token.key}}</strong></p>
+{% endblock %}
