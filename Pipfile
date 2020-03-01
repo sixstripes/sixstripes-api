@@ -28,6 +28,7 @@ pandas = "*"
 ipdb = "*"
 django-multiselectfield = "*"
 drf-yasg = {extras = ["validation"],version = "*"}
+django-templated-email = "*"
 
 [requires]
 python_version = "3.8"

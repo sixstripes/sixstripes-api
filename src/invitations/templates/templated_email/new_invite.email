@@ -1,0 +1,13 @@
+
+{% block subject %}New invite request{% endblock %}
+
+{% block html %}
+  <p>Hi,</p>
+
+  <p>We received a new invite request!</p>
+  <p><strong>Name:</strong> {{invite.name}}</p>
+  <p><strong>Email:</strong> {{invite.email}}</p>
+  <p><strong>Reason:</strong> {{invite.reason}}</p>
+
+  <p>You can approve or reject this invite request (and others) accessing this <a href="http://{{site_url}}{% url 'admin:invitations_invite_changelist' %}?status__exact=pending">link</a> :)</p>
+{% endblock %}

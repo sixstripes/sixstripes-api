@@ -1,4 +1,8 @@
+from django.conf import settings
+from django.contrib.sites.models import Site
 from django.db import models
+from django.db.models.signals import post_save
+from templated_email import send_templated_mail
 
 STATUS_CHOICES = (
     ("pending", "Pending"),
@@ -20,3 +24,17 @@ class Invite(models.Model):
 
     def __str__(self):
         return f"{self.email} - {self.reason}"
+
+
+def invite_post_create(sender, instance, created, **kwargs):
+    if created:
+        site = Site.objects.get(id=1)
+        send_templated_mail(
+            template_name="new_invite",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=settings.ADMIN_EMAILS,
+            context={"invite": instance, "site_url": site.domain},
+        )
+
+
+post_save.connect(invite_post_create, sender=Invite)
