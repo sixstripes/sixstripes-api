@@ -9,4 +9,7 @@ class InviteAdmin(admin.ModelAdmin):
         "email",
         "reason",
         "created_at",
+        "status",
     )
+    list_filter = ["status"]
+    search_fields = ["email", "name"]
