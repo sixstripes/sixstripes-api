@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from invitations import api as invitations_api
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -38,6 +39,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path("v1/", include(router.urls)),
+    path("invites/", invitations_api.InviteCreateAPIView.as_view(), name="create-invite"),
     path("", schema_view.with_ui("redoc", cache_timeout=0), name="api-schema"),
 ]
 
