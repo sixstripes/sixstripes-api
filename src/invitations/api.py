@@ -7,3 +7,4 @@ class InviteCreateAPIView(CreateAPIView):
     serializer_class = serializers.InviteSerializer
     authentication_classes = []
     permission_classes = []
+    swagger_schema = None
