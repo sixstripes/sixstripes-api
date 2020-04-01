@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 
 public/
+node_modules/

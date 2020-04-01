@@ -1,0 +1,27 @@
+{% extends "drf-yasg/redoc.html" %}
+{% load compress static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block favicon %}
+{% endblock %}
+
+{% block extra_styles %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/scss" href="{% static 'scss/app.scss' %}">
+    {% endcompress %}
+{% endblock %}
+
+{% block extra_body %}
+    {# -- Add any header/body markup here (rendered BEFORE the swagger-ui/redoc element) -- #}
+{% endblock %}
+
+{% block footer %}
+    {# -- Add any footer markup here (rendered AFTER the swagger-ui/redoc element) -- #}
+{% endblock %}
+
+{% block extra_scripts %}
+    {% compress js %}
+        <script type="module" src="{% static 'modules/app.js' %}"></script>
+    {% endcompress %}
+{% endblock %}

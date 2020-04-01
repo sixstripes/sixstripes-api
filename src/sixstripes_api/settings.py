@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "django_filters",
     "drf_yasg",
+    "compressor",
+    "compressor_toolkit",
     "data",
     "invitations",
 ]
@@ -65,7 +67,7 @@ ROOT_URLCONF = "sixstripes_api.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -124,9 +126,32 @@ STATIC_HOST = config("DJANGO_STATIC_HOST", default="")
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "public/static")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
+)
 
 if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+NODE_BIN = os.path.join(os.path.dirname(BASE_DIR), "node_modules/.bin")
+COMPRESS_NODE_SASS_BIN = os.path.join(NODE_BIN, "node-sass")
+COMPRESS_POSTCSS_BIN = os.path.join(NODE_BIN, "postcss")
+COMPRESS_BROWSERIFY_BIN = os.path.join(NODE_BIN, "webpack")
+
+COMPRESS_ES6_COMPILER_CMD = (
+    "{browserify_bin} {infile} -o {outfile}"
+    # 'export NODE_PATH="{paths}" && '
+    # '{browserify_bin} {infile} -o {outfile} '
+    # '-t [ "{node_modules}/babelify" --presets=[ {node_modules}/@babel/preset-env ] ]'
+    # '-t [ "{node_modules}/babelify" --presets=[ {node_modules}/@babel/preset-env ] ]'
+)
+
+COMPRESS_PRECOMPILERS = (
+    ("text/scss", "compressor_toolkit.precompilers.SCSSCompiler"),
+    ("module", "compressor_toolkit.precompilers.ES6Compiler"),
+)
 
 
 REST_FRAMEWORK = {
