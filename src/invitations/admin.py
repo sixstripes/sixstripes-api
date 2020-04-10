@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.models import User
+from django.db.models import TextField
 from django.utils.crypto import get_random_string
+from django_json_widget.widgets import JSONEditorWidget
 from invitations import models
 from rest_framework.authtoken.models import Token
 from templated_email import send_templated_mail
@@ -44,3 +46,22 @@ class InviteAdmin(admin.ModelAdmin):
             users.update(is_active=False)
             Token.objects.filter(user__in=users).delete()
         queryset.update(status="rejected")
+
+
+@admin.register(models.DataSuggestion)
+class DataSuggestionAdmin(admin.ModelAdmin):
+    list_display = ("created_at", "data")
+    formfield_overrides = {
+        TextField: {
+            "widget": JSONEditorWidget(
+                options={
+                    "mode": "tree",
+                    "sortObjectKeys": True,
+                    "modes": [],
+                    "navigationBar": False,
+                    "mainMenuBar": False,
+                    "statusBar": False,
+                }
+            )
+        },
+    }

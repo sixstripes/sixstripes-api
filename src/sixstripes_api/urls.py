@@ -41,6 +41,7 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("v1/", include(router.urls)),
     path("invites/", invitations_api.InviteCreateAPIView.as_view(), name="create-invite"),
+    path("suggestions/", invitations_api.DataSuggestionAPIView.as_view(), name="create-suggestion"),
     path("", schema_view.with_ui("redoc", cache_timeout=0), name="api-schema"),
 ]
 

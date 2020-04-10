@@ -38,3 +38,8 @@ def invite_post_create(sender, instance, created, **kwargs):
 
 
 post_save.connect(invite_post_create, sender=Invite)
+
+
+class DataSuggestion(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    data = models.TextField()

@@ -8,3 +8,11 @@ class InviteCreateAPIView(CreateAPIView):
     authentication_classes = []
     permission_classes = []
     swagger_schema = None
+
+
+class DataSuggestionAPIView(CreateAPIView):
+    queryset = models.DataSuggestion.objects.all()
+    serializer_class = serializers.DataSuggestionSerializer
+    authentication_classes = []
+    permission_classes = []
+    swagger_schema = None

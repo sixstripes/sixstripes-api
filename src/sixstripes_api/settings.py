@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "django_filters",
     "drf_yasg",
+    "django_json_widget",
     "compressor",
     "compressor_toolkit",
     "data",
