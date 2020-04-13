@@ -1,1 +1,11 @@
-@import 'components/test.scss';
+// ambience
+@import 'ambience/colors.scss';
+
+// base
+@import 'base/typography.scss';
+
+// components
+@import 'components/menu-content.scss';
+@import 'components/nav-bar.scss';
+@import 'components/redoc-wrap.scss';
+@import 'components/search-input.scss';

@@ -1,0 +1,42 @@
+body {
+  padding-top: 3.125rem;
+}
+
+.redoc-wrap {
+  & .api-content {
+    margin-left: auto;
+  }
+  
+  & .sc-iuJeZd.fLUKgj,
+  & .dtUibw {
+    background: $dark-gray !important;
+  }
+
+  & .jCgylq .token.selector,
+  .jCgylq .token.attr-name,
+  .jCgylq .token.string,
+  .jCgylq .token.char,
+  .jCgylq .token.builtin,
+  .jCgylq .token.inserted {
+    color: #fff !important;
+  }
+
+  & .jCgylq .token.selector + a,
+  .jCgylq .token.attr-name + a,
+  .jCgylq .token.string + a,
+  .jCgylq .token.char + a,
+  .jCgylq .token.builtin + a,
+  .jCgylq .token.inserted + a,
+  .jCgylq .token.selector + a:visited,
+  .jCgylq .token.attr-name + a:visited,
+  .jCgylq .token.string + a:visited,
+  .jCgylq .token.char + a:visited,
+  .jCgylq .token.builtin + a:visited,
+  .jCgylq .token.inserted + a:visited {
+    color: #fdd835 !important;
+  }
+
+  & * {
+    font-family: "Overpass", sans-serif !important;
+  }
+}

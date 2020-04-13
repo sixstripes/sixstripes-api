@@ -1,0 +1,28 @@
+.nav-bar {
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 3.125rem;
+  padding: 0 1rem;
+  border-bottom: 1px solid $light-gray;
+  background-color: #FFF;
+
+  & > .brand {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  & > .brand > .version {
+    text-transform: uppercase;
+    font-size: 0.625rem;
+    border: 1px solid $light-gray;
+    border-radius: 6px;
+    padding: .15rem .75rem;
+    color: rgba($dark-gray, .6);
+    margin-left: .5rem;
+  }
+}

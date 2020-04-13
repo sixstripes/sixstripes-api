@@ -1,0 +1,43 @@
+.menu-content {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  margin-top: 3.125rem;
+  width: 216px;
+  background-color: #fff !important;
+
+  & .scrollbar-container li {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  & ul li > label > svg {
+    display: none;
+  }
+
+  & [data-role="search:results"] {
+    margin-top: 0;
+    border-top: 0;
+    width: 100%;
+  }
+
+  & .sc-hXRMBi.nGwee {
+    display: none;
+  }
+
+  & .sc-esOvli.kKQhLA {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > div {
+      width: 100%;
+    }
+  }
+
+  & .sc-esOvli.kKQhLA > i,
+  & .sc-esOvli.kKQhLA > svg {
+    margin-top: .7rem;
+  }
+}
