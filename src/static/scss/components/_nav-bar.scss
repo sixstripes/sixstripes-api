@@ -1,4 +1,6 @@
 .nav-bar {
+  display: flex;
+  align-items: center;
   position: fixed;
   z-index: 9;
   width: 100%;
@@ -24,5 +26,41 @@
     padding: .15rem .75rem;
     color: rgba($dark-gray, .6);
     margin-left: .5rem;
+  }
+
+  & > .nav {
+    display: flex;
+    margin-left: 5rem;
+    height: 100%;
+  }
+
+  & > .nav > a {
+    position: relative;
+    color: rgba(#000, .5);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 1rem;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  & > .nav > a.-active {
+    color: #000;
+
+    &::after {
+      position: absolute;
+      transform: skewX(-25deg);
+      bottom: -1px;
+      display: block;
+      content: '';
+      width: 100%;
+      height: 3px;
+      background-color: $normal-purple;
+    }
   }
 }

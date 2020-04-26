@@ -1,4 +1,7 @@
-import Retangulo from './components/retangulo';
+const search = document.querySelector(".search-input");
 
-const p = new Retangulo(100, 200);
-console.log(p)
+function update() {
+  console.log("foi");
+}
+
+search.addEventListener("change", update);
