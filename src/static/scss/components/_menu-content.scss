@@ -40,4 +40,46 @@
   & .sc-esOvli.kKQhLA > svg {
     margin-top: 0.7rem;
   }
+
+  & .operation-type {
+    opacity: 0;
+    width: 0px;
+  }
+
+  & .sc-gwVKww {
+    position: relative;
+    margin-right: auto;
+    padding-left: 1rem;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      display: block;
+      content: '';
+      color: transparent;
+      margin-top: 2px;
+      width: 3px;
+      height: 16px;
+      background-color: rgba(#000, .25);
+      transform: skewY(-25deg);
+    }
+  }
+
+  & .sc-eTuwsz.-depth1.active.gcUzvG > .sc-gwVKww {
+
+    &::before {
+      background-color: $normal-purple;
+    }
+    
+  }
+
+  & .sc-eTuwsz.-depth2.active.gSKHto {
+    color: $normal-purple;
+  }
+
+  & .sc-gwVKww.SmuWE {
+    &::before {
+      display: none;
+    }
+  }
 }
