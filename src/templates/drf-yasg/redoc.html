@@ -1,19 +1,30 @@
-{% extends "drf-yasg/redoc.html" %}
-{% load compress static %}
+{% load static compress %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ title }}{% endblock %}</title>
 
-{% block title %}{{ title }}{% endblock %}
+    {% block extra_head %}
+        {# -- Add any extra HTML heads tags here - except scripts and styles -- #}
+    {% endblock %}
 
-{% block favicon %}
-{% endblock %}
+    {% block favicon %}
+        {# -- Maybe replace the favicon -- #}
+        <link rel="icon" type="image/png" href="{% static 'drf-yasg/redoc/redoc-logo.png' %}"/>
+    {% endblock %}
 
-{% block extra_styles %}
+    {% block main_styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'drf-yasg/style.css' %}"/>
+    {% endblock %}
     {% compress css %}
         <link rel="stylesheet" type="text/scss" href="{% static 'scss/app.scss' %}">
     {% endcompress %}
-{% endblock %}
+</head>
+<body>
 
-{% block extra_body %}
-    <div class="nav-bar"> 
+    <div class="nav-bar">
         <div class="brand">
             {% include './logo.html' %}
             <span class="version">v.1</span>
@@ -26,14 +37,23 @@
 
         </div> -->
     </div>
-{% endblock %}
 
-{% block footer %}
-    {# -- Add any footer markup here (rendered AFTER the swagger-ui/redoc element) -- #}
-{% endblock %}
+    <div id="redoc-placeholder"></div>
 
-{% block extra_scripts %}
+    {% block footer %}
+        {# -- Add any footer markup here (rendered AFTER the swagger-ui/redoc element) -- #}
+    {% endblock %}
+
+    <script id="redoc-settings" type="application/json">{{ redoc_settings | safe }}</script>
+
     {% compress js %}
         <script type="module" src="{% static 'modules/app.js' %}"></script>
     {% endcompress %}
-{% endblock %}
+    {% block main_scripts %}
+        <script src="{% static 'drf-yasg/insQ.min.js' %}"></script>
+        <script src="{% static 'drf-yasg/url-polyfill.min.js' %}"></script>
+        <script src="{% static 'drf-yasg/redoc/redoc.min.js' %}"></script>
+        <script src="{% static 'drf-yasg/redoc-init.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

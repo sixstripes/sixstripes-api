@@ -1,7 +1,12 @@
-const search = document.querySelector(".search-input");
+function app() {
+  const search = document.querySelector(".search-input");
 
-function update() {
-  console.log("foi");
+  function update() {
+    console.log("foi");
+  }
+
+  search.addEventListener("change", update);
+  console.log("caceta")
 }
 
-search.addEventListener("change", update);
+window.app = app;
