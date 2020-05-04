@@ -8,8 +8,7 @@
 
   & .scrollbar-container li {
     font-weight: bold;
-    font-size: 18px;
-    line-height: 28px;
+    font-size: 16px;
   }
 
   & ul li > label > svg {
@@ -22,7 +21,7 @@
     width: 100%;
   }
 
-  & .sc-hXRMBi.nGwee {
+  & .sc-hXRMB i.nGwee {
     display: none;
   }
 
@@ -81,5 +80,9 @@
     &::before {
       display: none;
     }
+  }
+
+  &[data-markjs] {
+    background-color: transparent;
   }
 }
