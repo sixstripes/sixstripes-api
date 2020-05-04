@@ -1,6 +1,8 @@
 function app() {
   const search = document.querySelector(".search-input");
   const navLinks = document.querySelectorAll('a[data-link]');
+  const redocWrap = document.querySelector('.redoc-wrap');
+  const collaborateWrap = document.querySelector('.collaborate-page');
   
   function update() {
     const searchChild = document.querySelector('div[data-role="search:results"]');
@@ -31,12 +33,16 @@ function app() {
     navLinks[i].addEventListener('click', function () {
       if (this.getAttribute('data-link') === 'docs') {
         navLinks[1].classList.remove('-active');
+        redocWrap.style.display = 'block';
+        collaborateWrap.style.display = 'none';
         
         this.classList.add('-active');
       }
       
       if (this.getAttribute('data-link') === 'collaborate') {
         navLinks[0].classList.remove('-active');
+        redocWrap.style.display = 'none';
+        collaborateWrap.style.display = 'block';
 
         this.classList.add('-active');
       }
