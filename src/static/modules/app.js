@@ -1,5 +1,6 @@
 function app() {
   const search = document.querySelector(".search-input");
+  const navLinks = document.querySelectorAll('a[data-link]');
   
   function update() {
     const searchChild = document.querySelector('div[data-role="search:results"]');
@@ -24,6 +25,22 @@ function app() {
         notFound.parentNode.removeChild(notFound);
       });
     }
+  }
+
+  for (var i = 0; i < navLinks.length; i++) {
+    navLinks[i].addEventListener('click', function () {
+      if (this.getAttribute('data-link') === 'docs') {
+        navLinks[1].classList.remove('-active');
+        
+        this.classList.add('-active');
+      }
+      
+      if (this.getAttribute('data-link') === 'collaborate') {
+        navLinks[0].classList.remove('-active');
+
+        this.classList.add('-active');
+      }
+    });
   }
 
   search.addEventListener("keyup", update);
