@@ -1,5 +1,64 @@
 .collaborate-page {
   display: none;
-
+  margin-left: 17.5rem;
   padding: 1rem;
+  width: 34rem;
+  // z-index: 1;
+  // position: relative;
+  // width: calc(100% - 260px);
+  // contain: layout;
+  // overflow: hidden;
+
+  & > .header {
+    padding-bottom: 2.25rem;
+    border-bottom: 1px solid rgba(#444442, .2);
+  }
+
+  & > .header > h1 {
+    color: $normal-purple !important;
+  }
+
+  & > .header > p {
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-top: 1.75rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  & > .header > p > a {
+    text-decoration: underline;
+    color: $normal-purple;
+  }
+
+  & > .content {
+    margin-top: 2.25rem;
+  }
+
+  & .js-dynamic-fields {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & select {
+    margin-bottom: 1rem;
+  }
+
+  & input {
+    margin-bottom: 1rem;
+    height: 2.25rem;
+    background-color: rgba(#E7E7E7, .4);
+    border: none;
+    border-bottom: 1px solid rgba(#444442, .5);
+    font-style: italic;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  & button {
+    margin-top: 1.25rem;
+    margin-bottom: 2rem;
+  }
 }
