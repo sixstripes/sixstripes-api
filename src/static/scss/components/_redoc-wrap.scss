@@ -7,6 +7,10 @@ body {
     margin-left: auto;
   }
 
+  & h1 {
+    font-weight: bold;
+  }
+
   & .api-content p {
     font-family: 'Source Sans Pro', sans-serif !important;
     font-style: normal !important;

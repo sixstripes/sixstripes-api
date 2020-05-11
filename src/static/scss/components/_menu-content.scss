@@ -72,6 +72,18 @@
 
   }
 
+  & ul > li > label {
+    font-size: 14px;
+  }
+
+  & .scrollbar-container > ul > li > label {
+    font-weight: bold;
+  }
+
+  & label[role="menuitem"] {
+    font-weight: normal;
+  }
+
   & .sc-eTuwsz.-depth2.active.gSKHto {
     color: $normal-purple;
   }
