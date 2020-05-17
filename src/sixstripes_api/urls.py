@@ -19,6 +19,7 @@ router.register(r"occupations", api.OccupationViewSet)
 router.register(r"movie-genders", api.MovieGenderViewSet)
 router.register(r"social-medias", api.SocialMediaViewSet)
 router.register(r"sports", api.SportViewSet)
+router.register(r"sexual-orientations", api.SexualOrientationViewSet)
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -40,6 +41,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path("v1/", include(router.urls)),
+    path("v1/countries/", api.CountryView.as_view(), name="list-countries"),
     path("invites/", invitations_api.InviteCreateAPIView.as_view(), name="create-invite"),
     path("suggestions/", invitations_api.DataSuggestionAPIView.as_view(), name="create-suggestion"),
     path("", schema_view.with_ui("redoc", cache_timeout=0), name="api-schema"),

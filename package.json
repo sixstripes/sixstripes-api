@@ -5,8 +5,10 @@
   "author": "Matheus Fernandes <matheus.souza.fernandes@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@yaireo/tagify": "^3.8.0",
     "autoprefixer": "^9.7.5",
     "axios": "^0.19.2",
+    "js-datepicker": "^5.11.0",
     "node-sass": "^4.13.1",
     "postcss-cli": "^7.1.0",
     "webpack": "^4.42.1",

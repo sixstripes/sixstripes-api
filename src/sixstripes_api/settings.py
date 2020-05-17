@@ -126,7 +126,7 @@ USE_TZ = True
 STATIC_HOST = config("DJANGO_STATIC_HOST", default="")
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "public/static")
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"), os.path.join(os.path.dirname(BASE_DIR), "node_modules"))
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",

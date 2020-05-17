@@ -1,7 +1,8 @@
 from data import filters, models, serializers, swagger
 from django.utils.decorators import method_decorator
+from django_countries import countries
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import mixins, viewsets
+from rest_framework import mixins, permissions, response, views, viewsets
 
 
 @method_decorator(
@@ -89,6 +90,7 @@ class ScientistViewSet(viewsets.ReadOnlyModelViewSet):
     name="list", decorator=swagger_auto_schema(operation_summary="list musical genders"),
 )
 class MusicalGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    permission_classes = [permissions.AllowAny]
     queryset = models.MusicalGender.objects.all()
     serializer_class = serializers.MusicalGenderSerializer
 
@@ -97,6 +99,7 @@ class MusicalGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     name="list", decorator=swagger_auto_schema(operation_summary="list occupations"),
 )
 class OccupationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    permission_classes = [permissions.AllowAny]
     queryset = models.Occupation.objects.all()
     serializer_class = serializers.OccupationSerializer
 
@@ -105,6 +108,7 @@ class OccupationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     name="list", decorator=swagger_auto_schema(operation_summary="list movie genders"),
 )
 class MovieGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    permission_classes = [permissions.AllowAny]
     queryset = models.MovieGender.objects.all()
     serializer_class = serializers.MovieGenderSerializer
 
@@ -113,6 +117,7 @@ class MovieGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     name="list", decorator=swagger_auto_schema(operation_summary="list social medias"),
 )
 class SocialMediaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    permission_classes = [permissions.AllowAny]
     queryset = models.SocialMedia.objects.all()
     serializer_class = serializers.SocialMediaSerializer
 
@@ -121,5 +126,27 @@ class SocialMediaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     name="list", decorator=swagger_auto_schema(operation_summary="list sports"),
 )
 class SportViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    permission_classes = [permissions.AllowAny]
     queryset = models.Sport.objects.all()
     serializer_class = serializers.SportSerializer
+
+
+@method_decorator(
+    name="list", decorator=swagger_auto_schema(operation_summary="list sexual orientations"),
+)
+class SexualOrientationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    permission_classes = [permissions.AllowAny]
+    queryset = models.SexualOrientation.objects.all()
+    serializer_class = serializers.SexualOrientationSerializer
+
+
+class CountryView(views.APIView):
+    permission_classes = [permissions.AllowAny]
+    swagger_schema = None
+
+    def get(self, request):
+        data = list(
+            map(lambda code: {"code": code, "name": countries.countries[code]}, countries.countries.keys())
+        )
+        results = serializers.CountrySerializer(data, many=True).data
+        return response.Response({"count": len(results), "next": None, "previous": None, "results": results})

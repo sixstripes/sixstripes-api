@@ -20,6 +20,8 @@
     {% endblock %}
     {% compress css %}
         <link rel="stylesheet" type="text/scss" href="{% static 'scss/app.scss' %}">
+        <link rel="stylesheet" type="text/scss" href="{% static '@yaireo/tagify/src/tagify.scss' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'js-datepicker/dist/datepicker.min.css' %}"/>
     {% endcompress %}
 </head>
 <body>
@@ -49,12 +51,12 @@
             <div>
                 <form action="" class="js-collaborate-form">
                     <select name="data_type" id="select-model-name" class="js-data-type-selector">
-                        <option value="Athlet">Athlet</option>
-                        <option value="DigitalInfluencer">DigitalInfluencer</option>
-                        <option value="Movie">Movie</option>
-                        <option value="Musician">Musician</option>
-                        <option value="Politician">Politician</option>
-                        <option value="Scientist">Scientist</option>
+                        <option value="athlet">Athlet</option>
+                        <option value="digital-influencer">DigitalInfluencer</option>
+                        <option value="movie">Movie</option>
+                        <option value="musician">Musician</option>
+                        <option value="politician">Politician</option>
+                        <option value="scientist">Scientist</option>
                     </select>
                     <div class="js-dynamic-fields"></div>
                     <button type="submit" class="button-default">Send</button>
@@ -79,6 +81,7 @@
         <script src="{% static 'drf-yasg/url-polyfill.min.js' %}"></script>
         <script src="{% static 'drf-yasg/redoc/redoc.min.js' %}"></script>
         <script src="{% static 'drf-yasg/redoc-init.js' %}"></script>
+        <script src="{% static 'js-datepicker/dist/datepicker.min.js' %}"></script>
     {% endblock %}
 </body>
 </html>

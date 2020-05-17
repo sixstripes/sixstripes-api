@@ -160,3 +160,8 @@ class ScientistSerializer(CountryFieldMixin, serializers.ModelSerializer):
             "sexual_orientation",
             "occupations",
         )
+
+
+class CountrySerializer(serializers.Serializer):
+    code = serializers.CharField()
+    name = serializers.CharField()
