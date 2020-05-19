@@ -82,6 +82,14 @@
 
   & label[role="menuitem"] {
     font-weight: normal;
+
+    &:hover {
+      color: $normal-purple;
+    }
+  }
+  
+  & label[role="menuitem"].active {
+    color: $normal-purple;
   }
 
   & .sc-eTuwsz.-depth2.active.gSKHto {
