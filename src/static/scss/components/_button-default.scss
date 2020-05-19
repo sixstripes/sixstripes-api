@@ -1,9 +1,26 @@
 .button-default {
+  display: flex;
+  align-items: center;
   background-color: $normal-purple;
+  font-family: "Overpass", sans-serif !important;
   color: #fff;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  padding: .5rem 3rem;
+  padding: .5rem 1rem;
   border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #652be0;
+  }
+
+  & > .icon {
+    margin-left: 1rem;
+
+    & > svg {
+      width: 2rem;
+      height: 0.7rem;
+    }
+  }
 }

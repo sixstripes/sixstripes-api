@@ -3,11 +3,6 @@
   margin-left: 17.5rem;
   padding: 1rem;
   width: 34rem;
-  // z-index: 1;
-  // position: relative;
-  // width: calc(100% - 260px);
-  // contain: layout;
-  // overflow: hidden;
 
   & > .header {
     padding-bottom: 2.25rem;
@@ -36,22 +31,19 @@
     margin-top: 2.25rem;
   }
 
-  & .js-dynamic-fields {
-    display: flex;
-    flex-direction: column;
-  }
-
   & select {
     margin-bottom: 1rem;
   }
 
-  & input {
+  & input,
+  & select,
+  & .tagify {
     margin-bottom: 1rem;
+    padding: 0 .5rem;
     height: 2.25rem;
     background-color: rgba(#E7E7E7, .4);
     border: none;
     border-bottom: 1px solid rgba(#444442, .5);
-    font-style: italic;
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
@@ -60,5 +52,43 @@
   & button {
     margin-top: 1.25rem;
     margin-bottom: 2rem;
+  }
+
+  & .js-collaborate-form {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  & .js-dynamic-fields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: .5rem;
+  }
+
+  & .js-dynamic-fields > * + * {
+    margin-top: .5rem;
+  }
+
+  & .js-dynamic-fields > * {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+  }
+
+  & .js-dynamic-fields > .name,
+  & .js-dynamic-fields > .social_media_username {
+    width: 60%;
+  }
+
+  & .js-dynamic-fields > .start_birth_date,
+  & .js-dynamic-fields > .start_death_date,
+  & .js-dynamic-fields > .subscribers,
+  & .js-dynamic-fields > .views,
+  & .js-dynamic-fields > .country,
+  & .js-dynamic-fields > .sexual_orientation,
+  & .js-dynamic-fields > .year {
+    width: calc(50% - .5rem);
   }
 }

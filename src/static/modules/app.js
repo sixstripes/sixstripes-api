@@ -12,7 +12,7 @@ function app() {
 
     if (search.value.length > 3 && !searchChild && !notFound) {
       const tag = document.createElement("p");
-      const text = document.createTextNode("Não encontrado");
+      const text = document.createTextNode("We couldn't find anything like that :(");
       tag.appendChild(text);
 
       search.parentNode.appendChild(tag).classList.add("not-found");
