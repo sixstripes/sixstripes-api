@@ -40,13 +40,18 @@
   & .tagify {
     margin-bottom: 1rem;
     padding: 0 .5rem;
-    height: 2.25rem;
+    height: 2.75rem;
     background-color: rgba(#E7E7E7, .4);
     border: none;
     border-bottom: 1px solid rgba(#444442, .5);
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
+  }
+
+  & .tagify {
+    padding: 0;
+    height: auto;
   }
 
   & button {
@@ -58,6 +63,11 @@
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  & .js-collaborate-form label {
+    margin-bottom: 4px;
+    color: #000;
   }
 
   & .js-dynamic-fields {

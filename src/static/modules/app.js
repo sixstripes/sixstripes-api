@@ -5,6 +5,9 @@ function app() {
   const navLinks = document.querySelectorAll('a[data-link]');
   const redocWrap = document.querySelector('.redoc-wrap');
   const collaborateWrap = document.querySelector('.collaborate-page');
+  const collaborateFields = document.querySelector('.js-dynamic-fields');
+  const collaborateSelect = document.querySelector('.js-data-type-selector');
+  const collaborateButton = document.querySelector('.button-default.-collaborate');
 
   function update() {
     const searchChild = document.querySelector('div[data-role="search:results"]');
@@ -59,6 +62,12 @@ function app() {
     dynamicForm.clearFields();
     dynamicForm.populateFields();
   })
+
+  collaborateButton.style.display = 'none';
+
+  collaborateSelect.addEventListener('change', (event) => {
+    collaborateButton.style.display = 'block';
+  });
 }
 
 window.app = app;
