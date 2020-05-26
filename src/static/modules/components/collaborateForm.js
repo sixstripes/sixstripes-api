@@ -1,4 +1,5 @@
 import { createField } from '../utils/fields';
+import axios from 'axios';
 
 const endpoints = {
   "athlet": [
@@ -67,7 +68,32 @@ class CollaborateForm {
   constructor(dataType) {
     this.dataType = dataType;
     this.form = document.querySelector(".js-collaborate-form");
+    this.form.onsubmit = this.beforeSend;
     this.fieldsContainer = this.form.querySelector(".js-dynamic-fields");
+  }
+
+  beforeSend(event) {
+    const formData = new FormData(event.target);
+    const finalData = {};
+    for (let field of formData.entries()) {
+      let [name, value] = field;
+      const fieldElement = this.querySelector(`[name="${name}"`);
+      if (fieldElement.dataset.fieldType === "multiple" || fieldElement.dataset.fieldType === "multiple-enum") {
+        const fieldDataString = fieldElement.value;
+        if (fieldDataString) {
+          const fieldData = JSON.parse(fieldDataString);
+          value = fieldData.map(data => {
+            return data.value;
+          });
+        }
+      }
+      finalData[name] = value;
+    }
+    axios.post('/suggestions/', {data: finalData}).then(response => {
+      alert('Enviado com sucesso!');
+      document.querySelector(".js-collaborate-form > .js-dynamic-fields").innerHTML = '';
+    });
+    return false;
   }
 
   clearFields() {

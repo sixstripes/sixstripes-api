@@ -22,7 +22,12 @@ function createTextField(field) {
 function createDateField(field) {
   const textField = createTextField(field);
   const input = textField.querySelector("input");
-  datepicker(input, {});
+  datepicker(input, {
+    formatter: (input, date, instance) => {
+      const value = date.toLocaleDateString()
+      input.value = value
+    }
+  });
   return textField;
 }
 
