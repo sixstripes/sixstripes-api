@@ -26,10 +26,17 @@ schema_view = get_schema_view(
         title="Six Stripes API",
         default_version="v1",
         description=(
-            "The data belonging to this database were collected and structured by the Sixstripes team "
-            "through research and curators on the web, in free databases (Wikipedia) and digital platforms "
-            "(Youtube and Sportify).<br>All profiles present are self-declared people belonging to the LGBTQ "
-            "community.<br>All data collected has reference links as a way of verifying its veracity."
+            """
+            Making way for representation through data, the Sixstripes API enables researchers, journalists,
+            students, businesses and more to explore, understand, and connect to a more diverse and
+            representative world.
+            <br>
+            All data made available through this API was collected and structured by the Sixstripes team
+            and/or by volunteers through research and curation of open databases and digital platforms.
+            <br>
+            Every person represented in a profile is self-declared as part of the LGBTQ community and all
+            collected data has reference links as a way of verifying its veracity.
+            """
         ),
         contact=openapi.Contact(email=""),
     ),
