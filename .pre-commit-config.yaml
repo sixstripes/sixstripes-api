@@ -21,14 +21,6 @@ repos:
 
 - repo: local
   hooks:
-  - id: pipenv-check
-    name: Pipenv Check
-    entry: pipenv check
-    language: system
-    files: Pipfile
-    verbose: false
-    pass_filenames: false
-
   - id: check-datetime-now
     name: check_datetime_now
     description: Prefer datetime.utcnow()
