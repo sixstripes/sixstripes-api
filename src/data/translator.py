@@ -26,9 +26,12 @@ from .utils import DatetimeParser
 class CsvDataTranslator:
     field_relation = {}
 
-    def __init__(self, csv_data):
+    def __init__(self, csv_data=None, from_csv=True):
         self.data = []
-        self.dataframe = pd.read_csv(csv_data).replace({pd.np.nan: None})
+        self.dataframe = None
+        self.from_csv = from_csv
+        if csv_data:
+            self.dataframe = pd.read_csv(csv_data).replace({pd.np.nan: None})
 
     def default_prepare_field(self, value):
         return value
@@ -47,6 +50,17 @@ class CsvDataTranslator:
 
             data[field] = prepare_field(csv_row[column])
         return data
+
+    def clean_data(self, data):
+        cleaned_data = {}
+        for field, column in self.field_relation.items():
+            prepare_field = getattr(self, f"prepare_{field}", None)
+            if not prepare_field or not callable(prepare_field):
+                cleaned_data[field] = self.default_prepare_field(data[field])
+                continue
+
+            cleaned_data[field] = prepare_field(data[field])
+        return cleaned_data
 
     def to_objects_list(self):
         return [self.to_object(data_dict) for data_dict in self.data]
@@ -100,6 +114,13 @@ class PoliticianDataTranslator(CsvDataTranslator):
         "death_date_range": "Death",
     }
 
+    def __init__(self, csv_data=None, from_csv=True):
+        super().__init__(csv_data=csv_data, from_csv=from_csv)
+        if not self.from_csv:
+            del self.field_relation["primary_occupation"]
+            del self.field_relation["secondary_occupation"]
+            self.field_relation.update({"occupations": "Occupations"})
+
     @transaction.atomic
     def prepare_occupation(self, value):
         if value is None:
@@ -107,6 +128,20 @@ class PoliticianDataTranslator(CsvDataTranslator):
 
         occupation = Occupation.objects.get_or_create(slug=slugify(value), defaults={"name": value})
         return occupation[0]
+
+    def prepare_occupations(self, value):
+        if not value:
+            return None
+
+        occupation_data = value.split(",")
+        occupations = [
+            Occupation.objects.get_or_create(
+                slug=slugify(occupation_name), defaults={"name": occupation_name}
+            )[0]
+            for occupation_name in occupation_data
+            if occupation_name
+        ]
+        return occupations
 
     def prepare_primary_occupation(self, value):
         return self.prepare_occupation(value)
@@ -135,11 +170,15 @@ class PoliticianDataTranslator(CsvDataTranslator):
 
         obj.save()
 
-        if data["primary_occupation"]:
-            obj.occupations.add(data["primary_occupation"])
+        if self.from_csv:
+            if data["primary_occupation"]:
+                obj.occupations.add(data["primary_occupation"])
 
-        if data["secondary_occupation"]:
-            obj.occupations.add(data["secondary_occupation"])
+            if data["secondary_occupation"]:
+                obj.occupations.add(data["secondary_occupation"])
+        else:
+            for occupation in data["occupations"]:
+                obj.occupations.add(occupation)
 
         return obj
 
@@ -209,16 +248,17 @@ class MovieDataTranslator(CsvDataTranslator):
         "cast": "Cast",
     }
 
-    def __init__(self, csv_data):
-        super().__init__(csv_data)
-        self.actor_names = set()
-        self.director_names = set()
-        self.gender_names = set()
+    def __init__(self, csv_data=None, from_csv=True):
+        super().__init__(csv_data=csv_data, from_csv=from_csv)
+        if csv_data:
+            self.actor_names = set()
+            self.director_names = set()
+            self.gender_names = set()
 
-        self.populate_names()
-        self.genders = self.save_genders()
-        self.actors = self.save_actors()
-        self.directors = self.save_directors()
+            self.populate_names()
+            self.genders = self.save_genders()
+            self.actors = self.save_actors()
+            self.directors = self.save_directors()
 
     def populate_names(self):
         for idx, row in self.dataframe.iterrows():
@@ -308,6 +348,7 @@ class DigitalInfluencerDataTranslator(CsvDataTranslator):
         "country": "Country",
         "reference": "Reference",
         "birth_date_range": "Birth",
+        "death_date_range": "Death",
         "subscribers": "Subscribers",
         "views": "Views",
         "url": "Channel Link",
@@ -316,11 +357,15 @@ class DigitalInfluencerDataTranslator(CsvDataTranslator):
     }
 
     def prepare_subscribers(self, value):
+        if not value:
+            return None
         cleaned = value.replace(".", "")
         cleaned = cleaned.replace(",", "")
         return int(cleaned)
 
     def prepare_views(self, value):
+        if not value:
+            return None
         cleaned = value.replace(".", "")
         cleaned = cleaned.replace(",", "")
         return int(cleaned)
@@ -352,6 +397,10 @@ class DigitalInfluencerDataTranslator(CsvDataTranslator):
             obj_data["start_birth_date"] = data["birth_date_range"][0]
             obj_data["end_birth_date"] = data["birth_date_range"][1]
 
+        if data["death_date_range"]:
+            obj_data["start_death_date"] = data["death_date_range"][0]
+            obj_data["end_death_date"] = data["death_date_range"][1]
+
         obj = DigitalInfluencer.objects.update_or_create(name=data["name"], defaults=obj_data,)[0]
 
         if data["main_social_medias"]:
@@ -372,12 +421,13 @@ class AthletDataTranslator(CsvDataTranslator):
         "sport": "Esporte",
     }
 
-    def __init__(self, csv_data):
-        super().__init__(csv_data)
-        self.sports = set()
+    def __init__(self, csv_data=None, from_csv=True):
+        super().__init__(csv_data=csv_data, from_csv=from_csv)
+        if csv_data:
+            self.sports = set()
 
-        self.populate_sports()
-        self.save_sports()
+            self.populate_sports()
+            self.save_sports()
 
     def populate_sports(self):
         for idx, row in self.dataframe.iterrows():
@@ -431,6 +481,14 @@ class ScientistDataTranslator(CsvDataTranslator):
         "death_date_range": "Death",
     }
 
+    def __init__(self, csv_data=None, from_csv=True):
+        super().__init__(csv_data=csv_data, from_csv=from_csv)
+        if not self.from_csv:
+            del self.field_relation["primary_occupation"]
+            del self.field_relation["secondary_occupation"]
+            del self.field_relation["third_occupation"]
+            self.field_relation.update({"occupations": "Occupations"})
+
     @transaction.atomic
     def prepare_occupation(self, value):
         if value is None:
@@ -447,6 +505,20 @@ class ScientistDataTranslator(CsvDataTranslator):
 
     def prepare_third_occupation(self, value):
         return self.prepare_occupation(value)
+
+    def prepare_occupations(self, value):
+        if not value:
+            return None
+
+        occupation_data = value.split(",")
+        occupations = [
+            Occupation.objects.get_or_create(
+                slug=slugify(occupation_name), defaults={"name": occupation_name}
+            )[0]
+            for occupation_name in occupation_data
+            if occupation_name
+        ]
+        return occupations
 
     @transaction.atomic
     def to_object(self, data):
@@ -466,13 +538,17 @@ class ScientistDataTranslator(CsvDataTranslator):
 
         obj = Scientist.objects.update_or_create(name=data["name"], defaults=obj_data,)[0]
 
-        if data["primary_occupation"]:
-            obj.occupations.add(data["primary_occupation"])
+        if self.from_csv:
+            if data["primary_occupation"]:
+                obj.occupations.add(data["primary_occupation"])
 
-        if data["secondary_occupation"]:
-            obj.occupations.add(data["secondary_occupation"])
+            if data["secondary_occupation"]:
+                obj.occupations.add(data["secondary_occupation"])
 
-        if data["third_occupation"]:
-            obj.occupations.add(data["third_occupation"])
+            if data["third_occupation"]:
+                obj.occupations.add(data["third_occupation"])
+        else:
+            for occupation in data["occupations"]:
+                obj.occupations.add(occupation)
 
         return obj

@@ -10,6 +10,9 @@ function createTextField(field) {
   fieldElement.setAttribute('id', field.name);
   fieldElement.setAttribute('name', field.name);
   fieldElement.setAttribute('data-field-type', field.type);
+  if (field.required) {
+    fieldElement.setAttribute('required', field.required);
+  }
 
   const div = document.createElement('div');
   div.setAttribute("class", field.name);
@@ -24,7 +27,7 @@ function createDateField(field) {
   const input = textField.querySelector("input");
   datepicker(input, {
     formatter: (input, date, instance) => {
-      const value = date.toLocaleDateString()
+      const value = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
       input.value = value
     }
   });
@@ -70,6 +73,9 @@ function createEnumField(field) {
     fieldElement.setAttribute('id', field.name);
     fieldElement.setAttribute('name', field.name);
     fieldElement.setAttribute('data-field-type', field.type);
+    if (field.required) {
+      fieldElement.setAttribute('required', field.required);
+    }
 
     data.map(item => {
       const optionElement = document.createElement('option');

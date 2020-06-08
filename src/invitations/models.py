@@ -43,3 +43,5 @@ post_save.connect(invite_post_create, sender=Invite)
 class DataSuggestion(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     data = models.TextField()
+    status = models.CharField(choices=STATUS_CHOICES, max_length=10, default="pending")
+    reject_reason = models.TextField(blank=True, null=True)

@@ -141,8 +141,8 @@ COUNTRIES_CHOICES = ((code, country) for code, country in countries.countries.it
 
 class Movie(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=255)
-    year = models.PositiveIntegerField()
-    countries = CountryField(verbose_name=_("country"), multiple=True)
+    year = models.PositiveIntegerField(blank=True, null=True)
+    countries = CountryField(verbose_name=_("country"), multiple=True, blank=True)
     reference = models.URLField(verbose_name=_("reference"), null=True, blank=True)
     genders = models.ManyToManyField(
         "data.MovieGender", related_name="movies", blank=True, verbose_name=_("movie genders")
