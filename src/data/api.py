@@ -63,7 +63,7 @@ class DigitalInfluencerViewSet(viewsets.ReadOnlyModelViewSet):
 @method_decorator(
     name="list",
     decorator=swagger_auto_schema(
-        filter_inspectors=[swagger.BaseFieldInspector], operation_summary="list athlets"
+        filter_inspectors=[swagger.BaseFieldInspector], operation_summary="list athletes"
     ),
 )
 @method_decorator(name="retrieve", decorator=swagger_auto_schema(operation_summary="detail athlet"))
@@ -87,7 +87,7 @@ class ScientistViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 @method_decorator(
-    name="list", decorator=swagger_auto_schema(operation_summary="list musical genders"),
+    name="list", decorator=swagger_auto_schema(operation_summary="list musical genres"),
 )
 class MusicalGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = [permissions.AllowAny]
@@ -105,7 +105,7 @@ class OccupationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 
 @method_decorator(
-    name="list", decorator=swagger_auto_schema(operation_summary="list movie genders"),
+    name="list", decorator=swagger_auto_schema(operation_summary="list movie genres"),
 )
 class MovieGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = [permissions.AllowAny]

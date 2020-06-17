@@ -234,7 +234,7 @@ class Athlet(PersonMixin):
 
     class Meta:
         verbose_name = _("Athlet")
-        verbose_name_plural = _("Athlets")
+        verbose_name_plural = _("Athletes")
 
     def __str__(self):
         return self.name
