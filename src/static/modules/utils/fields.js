@@ -55,7 +55,7 @@ function createMultipleEnumField(field){
     const textField = createTextField(field);
     const input = textField.querySelector("input");
     new Tagify(input, {
-      enforceWhitelist: true,
+      enforceWhitelist: field.forceEnum,
       whitelist: data.map((item) => {
         return item.name;
       })

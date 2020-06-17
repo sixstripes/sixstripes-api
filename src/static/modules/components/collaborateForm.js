@@ -22,14 +22,14 @@ const endpoints = {
     {name: "views", title: "Views", type: "integer", required: false},
     {name: "url", title: "URL", type: "uri", required: false},
     {name: "social_media_username", title: "Username", type: "text", required: false},
-    {name: "main_social_medias", title: "Social Medias", type: "multiple-enum", optionsUrl: "/v1/social-medias/", required: false},
+    {name: "main_social_medias", title: "Social Medias", type: "multiple-enum", optionsUrl: "/v1/social-medias/", required: false, forceEnum: false},
   ],
   "movie": [
     {name: "name", title: "Name", type: "text", required: true},
     {name: "year", title: "Year", type: "integer", required: false},
-    {name: "countries", title: "Countries", type: "multiple-enum", optionsUrl: "/v1/countries/", required: false},
+    {name: "countries", title: "Countries", type: "multiple-enum", optionsUrl: "/v1/countries/", required: false, forceEnum: true},
     {name: "reference", title: "Reference", type: "uri", required: true},
-    {name: "genders", title: "Genders", type: "multiple-enum", optionsUrl: "/v1/movie-genders/", required: false},
+    {name: "genders", title: "Genders", type: "multiple-enum", optionsUrl: "/v1/movie-genders/", required: false, forceEnum: false},
     {name: "directors", title: "Directors", type: "multiple", required: false},
     {name: "cast", title: "Cast", type: "multiple", required: false}
   ],
@@ -40,7 +40,7 @@ const endpoints = {
     {name: "start_birth_date", title: "Birth Date", type: "date", required: false},
     {name: "start_death_date", title: "Death Date", type: "date", required: false},
     {name: "sexual_orientation", title: "Sexual Orientation", type: "enum", optionsUrl: "/v1/sexual-orientations/", required: false},
-    {name: "musical_genders", title: "Musical Genders", type: "multiple-enum", optionsUrl: "/v1/musical-genders/", required: false}
+    {name: "musical_genders", title: "Musical Genders", type: "multiple-enum", optionsUrl: "/v1/musical-genders/", required: false, forceEnum: false}
   ],
   "politician": [
     {name: "name", title: "Name", type: "text", required: true},
@@ -49,7 +49,7 @@ const endpoints = {
     {name: "start_birth_date", title: "Birth Date", type: "date", required: false},
     {name: "start_death_date", title: "Death Date", type: "date", required: false},
     {name: "sexual_orientation", title: "Sexual Orientation", type: "enum", optionsUrl: "/v1/sexual-orientations/", required: false},
-    {name: "occupations", title: "Occupations", type: "multiple-enum", optionsUrl: "/v1/occupations/", required: true}
+    {name: "occupations", title: "Occupations", type: "multiple-enum", optionsUrl: "/v1/occupations/", required: true, forceEnum: false}
   ],
   "scientist": [
     {name: "name", title: "Name", type: "text", required: true},
@@ -58,7 +58,7 @@ const endpoints = {
     {name: "start_birth_date", title: "Birth Date", type: "date", required: false},
     {name: "start_death_date", title: "Death Date", type: "date", required: false},
     {name: "sexual_orientation", title: "Sexual Orientation", type: "enum", optionsUrl: "/v1/sexual-orientations/", required: false},
-    {name: "occupations", title: "Occupations", type: "multiple-enum", optionsUrl: "/v1/occupations/", required: false}
+    {name: "occupations", title: "Occupations", type: "multiple-enum", optionsUrl: "/v1/occupations/", required: false, forceEnum: false}
   ],
 }
 
