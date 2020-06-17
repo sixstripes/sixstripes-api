@@ -35,8 +35,8 @@ class SexualOrientationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
-@admin.register(models.MusicalGender)
-class MusicalGenderAdmin(admin.ModelAdmin):
+@admin.register(models.MusicalGenre)
+class MusicalGenreAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
@@ -53,8 +53,8 @@ class MusicianAdmin(ImportCSVAdminMixin, admin.ModelAdmin):
     import_csv_redirect_url_name = "admin:data_musician_changelist"
 
 
-@admin.register(models.MovieGender)
-class MovieGenderAdmin(admin.ModelAdmin):
+@admin.register(models.MovieGenre)
+class MovieGenreAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 

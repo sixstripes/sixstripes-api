@@ -10,8 +10,8 @@ from .models import (
     Movie,
     MovieActor,
     MovieDirector,
-    MovieGender,
-    MusicalGender,
+    MovieGenre,
+    MusicalGenre,
     Musician,
     Occupation,
     Politician,
@@ -188,7 +188,7 @@ class MusicianDataTranslator(CsvDataTranslator):
     field_relation = {
         "name": "Name",
         "sexual_orientation": "LGBTQ",
-        "musical_genders": "Gender",
+        "musical_genres": "Gender",
         "country": "Country",
         "reference": "Reference",
         "birth_date_range": "Birth",
@@ -196,17 +196,17 @@ class MusicianDataTranslator(CsvDataTranslator):
     }
 
     @transaction.atomic
-    def prepare_musical_genders(self, value):
+    def prepare_musical_genres(self, value):
         if not value:
             return None
 
-        genders_data = value.split(",")
-        genders = [
-            MusicalGender.objects.get_or_create(slug=slugify(gender_name), defaults={"name": gender_name})[0]
-            for gender_name in genders_data
+        genres_data = value.split(",")
+        genres = [
+            MusicalGenre.objects.get_or_create(slug=slugify(gender_name), defaults={"name": gender_name})[0]
+            for gender_name in genres_data
             if gender_name
         ]
-        return genders
+        return genres
 
     @transaction.atomic
     def to_object(self, data):
@@ -229,9 +229,9 @@ class MusicianDataTranslator(CsvDataTranslator):
 
         obj.save()
 
-        if data["musical_genders"]:
-            for gender in data["musical_genders"]:
-                obj.musical_genders.add(gender)
+        if data["musical_genres"]:
+            for gender in data["musical_genres"]:
+                obj.musical_genres.add(gender)
 
         return obj
 
@@ -244,7 +244,7 @@ class MovieDataTranslator(CsvDataTranslator):
         "directors": "Director",
         "countries": "Country",
         "reference": "Reference",
-        "genders": "Gender",
+        "genres": "Gender",
         "cast": "Cast",
     }
 
@@ -253,10 +253,10 @@ class MovieDataTranslator(CsvDataTranslator):
         if csv_data:
             self.actor_names = set()
             self.director_names = set()
-            self.gender_names = set()
+            self.genre_names = set()
 
             self.populate_names()
-            self.genders = self.save_genders()
+            self.genres = self.save_genres()
             self.actors = self.save_actors()
             self.directors = self.save_directors()
 
@@ -264,12 +264,12 @@ class MovieDataTranslator(CsvDataTranslator):
         for idx, row in self.dataframe.iterrows():
             self.actor_names.update(self.extended_string_to_list(row["Cast"]))
             self.director_names.update(self.extended_string_to_list(row["Director"]))
-            self.gender_names.update(self.extended_string_to_list(row["Gender"]))
+            self.genre_names.update(self.extended_string_to_list(row["Gender"]))
 
-    def save_genders(self):
-        genders = [MovieGender(name=name, slug=slugify(name)) for name in self.gender_names if name]
-        MovieGender.objects.all().delete()
-        return MovieGender.objects.bulk_create(genders)
+    def save_genres(self):
+        genres = [MovieGenre(name=name, slug=slugify(name)) for name in self.genre_names if name]
+        MovieGenre.objects.all().delete()
+        return MovieGenre.objects.bulk_create(genres)
 
     def save_actors(self):
         actors = [MovieActor(name=name) for name in self.actor_names if name]
@@ -282,13 +282,13 @@ class MovieDataTranslator(CsvDataTranslator):
         return MovieDirector.objects.bulk_create(directors)
 
     @transaction.atomic
-    def prepare_genders(self, value):
+    def prepare_genres(self, value):
         if not value:
             return None
 
-        gender_names = self.extended_string_to_list(value)
+        genre_names = self.extended_string_to_list(value)
 
-        return MovieGender.objects.in_bulk(gender_names, field_name="name").values()
+        return MovieGenre.objects.in_bulk(genre_names, field_name="name").values()
 
     def extended_string_to_list(self, extended_string):
         if not extended_string:
@@ -328,8 +328,8 @@ class MovieDataTranslator(CsvDataTranslator):
             defaults={"year": data["year"], "reference": data["reference"], "countries": data["countries"]},
         )[0]
 
-        if data["genders"]:
-            obj.genders.add(*data["genders"])
+        if data["genres"]:
+            obj.genres.add(*data["genres"])
 
         if data["directors"]:
             obj.directors.add(*data["directors"])

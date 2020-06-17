@@ -59,13 +59,13 @@ class Politician(PersonMixin):
         return self.name
 
 
-class MusicalGender(models.Model):
+class MusicalGenre(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=50)
     slug = models.SlugField()
 
     class Meta:
-        verbose_name = _("Musical Gender")
-        verbose_name_plural = _("Musical Genders")
+        verbose_name = _("Musical Genre")
+        verbose_name_plural = _("Musical Genres")
         ordering = ("slug",)
 
     def __str__(self):
@@ -84,9 +84,7 @@ class Musician(PersonMixin):
         related_name="musicians",
         on_delete=models.CASCADE,
     )
-    musical_genders = models.ManyToManyField(
-        "data.MusicalGender", verbose_name=_("musical gender"), blank=True
-    )
+    musical_genres = models.ManyToManyField("data.MusicalGenre", verbose_name=_("musical genre"), blank=True)
 
     class Meta:
         verbose_name = _("Musician")
@@ -107,13 +105,13 @@ class MovieDirector(models.Model):
         return self.name
 
 
-class MovieGender(models.Model):
+class MovieGenre(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=50, unique=True)
     slug = models.SlugField()
 
     class Meta:
-        verbose_name = _("Movie Gender")
-        verbose_name_plural = _("Movie Genders")
+        verbose_name = _("Movie Genre")
+        verbose_name_plural = _("Movie Genres")
         ordering = ("slug",)
 
     def __str__(self):
@@ -144,8 +142,8 @@ class Movie(models.Model):
     year = models.PositiveIntegerField(blank=True, null=True)
     countries = CountryField(verbose_name=_("country"), multiple=True, blank=True)
     reference = models.URLField(verbose_name=_("reference"), null=True, blank=True)
-    genders = models.ManyToManyField(
-        "data.MovieGender", related_name="movies", blank=True, verbose_name=_("movie genders")
+    genres = models.ManyToManyField(
+        "data.MovieGenre", related_name="movies", blank=True, verbose_name=_("movie genres")
     )
     directors = models.ManyToManyField(
         "data.MovieDirector", related_name="movies", blank=True, verbose_name=_("directors")

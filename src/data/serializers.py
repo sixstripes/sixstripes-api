@@ -35,14 +35,14 @@ class PoliticianSerializer(CountryFieldMixin, serializers.ModelSerializer):
         )
 
 
-class MusicalGenderSerializer(serializers.ModelSerializer):
+class MusicalGenreSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.MusicalGender
+        model = models.MusicalGenre
         fields = ("name", "slug")
 
 
 class MusicianSerializer(CountryFieldMixin, serializers.ModelSerializer):
-    musical_genders = serializers.StringRelatedField(many=True)
+    musical_genres = serializers.StringRelatedField(many=True)
     sexual_orientation = serializers.StringRelatedField()
 
     class Meta:
@@ -57,18 +57,18 @@ class MusicianSerializer(CountryFieldMixin, serializers.ModelSerializer):
             "start_death_date",
             "end_death_date",
             "sexual_orientation",
-            "musical_genders",
+            "musical_genres",
         )
 
 
-class MovieGenderSerializer(serializers.ModelSerializer):
+class MovieGenreSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.MovieGender
+        model = models.MovieGenre
         fields = ("name", "slug")
 
 
 class MovieSerializer(CountryFieldMixin, serializers.ModelSerializer):
-    genders = serializers.StringRelatedField(many=True)
+    genres = serializers.StringRelatedField(many=True)
     cast = serializers.StringRelatedField(many=True)
     directors = serializers.StringRelatedField(many=True)
 
@@ -80,7 +80,7 @@ class MovieSerializer(CountryFieldMixin, serializers.ModelSerializer):
             "year",
             "countries",
             "reference",
-            "genders",
+            "genres",
             "directors",
             "cast",
         )

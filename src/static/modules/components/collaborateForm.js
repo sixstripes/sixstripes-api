@@ -29,7 +29,7 @@ const endpoints = {
     {name: "year", title: "Year", type: "integer", required: false},
     {name: "countries", title: "Countries", type: "multiple-enum", optionsUrl: "/v1/countries/", required: false, forceEnum: true},
     {name: "reference", title: "Reference", type: "uri", required: true},
-    {name: "genders", title: "Genders", type: "multiple-enum", optionsUrl: "/v1/movie-genders/", required: false, forceEnum: false},
+    {name: "genres", title: "Genders", type: "multiple-enum", optionsUrl: "/v1/movie-genres/", required: false, forceEnum: false},
     {name: "directors", title: "Directors", type: "multiple", required: false},
     {name: "cast", title: "Cast", type: "multiple", required: false}
   ],
@@ -40,7 +40,7 @@ const endpoints = {
     {name: "start_birth_date", title: "Birth Date", type: "date", required: false},
     {name: "start_death_date", title: "Death Date", type: "date", required: false},
     {name: "sexual_orientation", title: "Sexual Orientation", type: "enum", optionsUrl: "/v1/sexual-orientations/", required: false},
-    {name: "musical_genders", title: "Musical Genders", type: "multiple-enum", optionsUrl: "/v1/musical-genders/", required: false, forceEnum: false}
+    {name: "musical_genres", title: "Musical Genders", type: "multiple-enum", optionsUrl: "/v1/musical-genres/", required: false, forceEnum: false}
   ],
   "politician": [
     {name: "name", title: "Name", type: "text", required: true},

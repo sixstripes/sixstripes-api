@@ -50,7 +50,7 @@ class MusicianFilterSet(filters.FilterSet):
             "start_death_date": ["exact", "gte", "gt", "lte", "lt"],
             "end_death_date": ["exact", "gte", "gt", "lte", "lt"],
             "sexual_orientation": ["exact"],
-            "musical_genders__slug": ["in"],
+            "musical_genres__slug": ["in"],
         }
 
 
@@ -61,7 +61,7 @@ class MovieFilterSet(filters.FilterSet):
             "name": ["exact", "icontains", "istartswith"],
             "countries": ["in"],
             "year": ["exact", "gte", "gt", "lte", "lt"],
-            "genders__slug": ["in"],
+            "genres__slug": ["in"],
         }
 
 

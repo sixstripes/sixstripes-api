@@ -89,10 +89,10 @@ class ScientistViewSet(viewsets.ReadOnlyModelViewSet):
 @method_decorator(
     name="list", decorator=swagger_auto_schema(operation_summary="list musical genres"),
 )
-class MusicalGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class MusicalGenreViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = [permissions.AllowAny]
-    queryset = models.MusicalGender.objects.all()
-    serializer_class = serializers.MusicalGenderSerializer
+    queryset = models.MusicalGenre.objects.all()
+    serializer_class = serializers.MusicalGenreSerializer
 
 
 @method_decorator(
@@ -107,10 +107,10 @@ class OccupationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 @method_decorator(
     name="list", decorator=swagger_auto_schema(operation_summary="list movie genres"),
 )
-class MovieGenderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class MovieGenreViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = [permissions.AllowAny]
-    queryset = models.MovieGender.objects.all()
-    serializer_class = serializers.MovieGenderSerializer
+    queryset = models.MovieGenre.objects.all()
+    serializer_class = serializers.MovieGenreSerializer
 
 
 @method_decorator(

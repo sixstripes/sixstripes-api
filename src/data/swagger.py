@@ -58,7 +58,7 @@ class PoliticianScientistFieldInspector(BaseFieldInspector):
 
 class MusicianFieldInspector(BaseFieldInspector):
     custom_filters = {
-        "musical_genders": {
+        "musical_genres": {
             "in": "query",
             "description": "Should be used with `__slug` suffix. Available filters: `in`",
             "type": "string",
@@ -69,7 +69,7 @@ class MusicianFieldInspector(BaseFieldInspector):
 
 class MovieFieldInspector(BaseFieldInspector):
     custom_filters = {
-        "genders": {
+        "genres": {
             "in": "query",
             "description": "Should be used with `__slug` suffix. Available filters: `in`",
             "type": "string",
