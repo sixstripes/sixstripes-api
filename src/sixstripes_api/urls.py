@@ -24,7 +24,7 @@ router.register(r"sexual-orientations", api.SexualOrientationViewSet)
 schema_view = get_schema_view(
     openapi.Info(
         title="Six Stripes API",
-        default_version="v1",
+        default_version="",
         description=(
             """
             Making way for representation through data, the Sixstripes API enables researchers, journalists,
