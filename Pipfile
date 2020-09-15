@@ -27,11 +27,15 @@ pendulum = "*"
 pandas = "*"
 ipdb = "*"
 django-multiselectfield = "*"
-drf-yasg = {extras = ["validation"],version = "*"}
 django-templated-email = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
 django-json-widget = "*"
+mailchimp3 = "*"
 
 [requires]
 python_version = "3.8"
+
+[packages.drf-yasg]
+extras = [ "validation",]
+version = "*"
