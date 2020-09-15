@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.db import models
 from django.db.models.signals import post_save
+from mailchimp3 import MailChimp
 from templated_email import send_templated_mail
 
 STATUS_CHOICES = (
@@ -37,7 +38,25 @@ def invite_post_create(sender, instance, created, **kwargs):
         )
 
 
+def add_subscriber_to_mailchimp(sender, instance, created, **kwargs):
+    if created:
+        client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, mc_user=settings.MAILCHIMP_USERNAME)
+        client.lists.members.create_or_update(
+            settings.MAILCHIMP_LIST_ID,
+            subscriber_hash=instance.email,
+            data={
+                "email_address": instance.email,
+                "status": "subscribed",
+                "status_if_new": "subscribed",
+                "merge_fields": {
+                    "FNAME": instance.name.split(" ")[0],
+                    "LNAME": " ".join(instance.name.split(" ")[1:]),
+                }
+            }
+        )
+
 post_save.connect(invite_post_create, sender=Invite)
+post_save.connect(add_subscriber_to_mailchimp, sender=Invite)
 
 
 class DataSuggestion(models.Model):

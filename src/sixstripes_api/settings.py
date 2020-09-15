@@ -176,6 +176,9 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="Webmaster <webmaster@localhost>")
 
+MAILCHIMP_API_KEY = config("MAILCHIMP_API_KEY", default="api-key")
+MAILCHIMP_USERNAME = config("MAILCHIMP_USERNAME", default="user")
+MAILCHIMP_LIST_ID = config("MAILCHIMP_LIST_ID", default="list-id")
 
 SWAGGER_SETTINGS = {"SECURITY_DEFINITIONS": {}}
 
