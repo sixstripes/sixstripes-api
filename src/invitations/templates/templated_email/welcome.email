@@ -1,4 +1,4 @@
-{% block subject %}Access the Sixstripes API right now!{% endblock %}
+{% block subject %}Welcome to sixstripes!{% endblock %}
 
 {% block html %}
 <!doctype html>
@@ -121,7 +121,7 @@
         <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
           <tbody>
             <tr>
-              <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+              <td style="border:0px transparent solid;direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
                 <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
 
@@ -144,7 +144,7 @@
           <tr>
             <td style="width:600px;">
 
-      <img height="auto" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5f9033032f6b9/1603285935.jpg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
+      <img height="auto" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5f8ca134674be/1603051864.jpg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
 
             </td>
           </tr>
@@ -155,44 +155,11 @@
             </tr>
 
             <tr>
-              <td align="left" style="font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;">
+              <td align="left" style="background:#2C2B2B;font-size:0px;padding:30px 30px 30px 30px;word-break:break-word;">
 
       <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:11px;line-height:1.5;text-align:left;color:#000000;">
-        <p style="text-align: center;"> </p>
-<p style="text-align: center;"><span style="font-size: 26px;"><strong><span style="font-family: helvetica, arial, sans-serif;">Your access token is here!</span></strong></span></p>
-<p style="text-align: left;"><br><span style="font-family: helvetica, arial, sans-serif; font-size: 16px;">Welcome to the Sixstripes community, we hope you can build new projects and analyzes using our API data. Enter the token below as authorization header for full access to the API.</span></p>
-<p style="text-align: left;"> </p>
-      </div>
-
-              </td>
-            </tr>
-
-            <tr>
-              <td align="center" vertical-align="middle" style="font-size:0px;padding:20px 20px 20px 20px;word-break:break-word;">
-
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:auto;line-height:100%;">
-        <tr>
-          <td align="center" bgcolor="#000000" role="presentation" style="border:3px #000 solid;border-radius:24px;cursor:auto;mso-padding-alt:9px 26px 9px 26px;background:#000000;" valign="middle">
-            <p style="display:inline-block;background:#000000;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:100%;Margin:0;text-decoration:none;text-transform:none;padding:9px 26px 9px 26px;mso-padding-alt:0px;border-radius:24px;">Token {{token.key}}
-              <div></div>
-            </p>
-          </td>
-        </tr>
-      </table>
-
-              </td>
-            </tr>
-
-            <tr>
-              <td align="left" style="font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;">
-
-      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:11px;line-height:1.5;text-align:left;color:#000000;">
-        <div> </div>
-<div><span style="font-size: 16px; font-family: helvetica, arial, sans-serif;">If you have any questions or suggestions, contact our team at <strong>hello@sixstripes.be</strong></span></div>
-<div> </div>
-<div> </div>
-<div><span style="font-size: 14px;"><strong><span style="font-family: helvetica, arial, sans-serif;">Happy pride coding,</span></strong></span><br><span style="font-size: 14px; font-family: helvetica, arial, sans-serif;">the Sixstripes team.</span></div>
-<div> </div>
+        <p><span style="font-family: helvetica, arial, sans-serif; font-size: 14px; color: #ffffff;"><strong><span style="font-size: 18px;">Hello</span></strong>,</span></p>
+<p><br><span style="font-family: helvetica, arial, sans-serif; font-size: 14px; color: #ffffff;">Welcome to the Sixstripes community! Your API access request is being processed and you will soon receive the access token at this email. Now, we invite you to discover more about our database:</span></p>
       </div>
 
               </td>
@@ -206,7 +173,53 @@
           <tr>
             <td style="width:600px;">
 
-      <img height="auto" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5f9033032f6b9/1603286178.jpg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
+      <img height="auto" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5f8ca134674be/1603052305.jpg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td align="left" style="background:#2C2B2B;font-size:0px;padding:30px 30px 30px 30px;word-break:break-word;">
+
+      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:11px;line-height:1.5;text-align:left;color:#000000;">
+        <p><strong><span style="font-family: helvetica, arial, sans-serif; font-size: 16px; color: #ffffff;">Happy pride coding,</span></strong><br><span style="font-family: helvetica, arial, sans-serif; font-size: 14px; color: #ffffff;">the Sixstripes team.</span></p>
+      </div>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+        <tbody>
+          <tr>
+            <td style="width:600px;">
+
+      <img height="auto" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5f8ca134674be/1603052436.jpg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+        <tbody>
+          <tr>
+            <td style="width:600px;">
+
+      <img height="auto" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5f8ca134674be/1603052569.jpg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
 
             </td>
           </tr>

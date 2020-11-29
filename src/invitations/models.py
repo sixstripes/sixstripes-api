@@ -37,6 +37,12 @@ def invite_post_create(sender, instance, created, **kwargs):
             context={"invite": instance, "site_url": site.domain},
         )
 
+        send_templated_mail(
+            template_name="welcome",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[instance.email],
+            context={"invite": instance, "site_url": site.domain},
+        )
 
 def add_subscriber_to_mailchimp(sender, instance, created, **kwargs):
     if created:
